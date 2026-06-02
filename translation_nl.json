@@ -1,6 +1,6 @@
 {
-  "pageTitle": "AI-bestendige toetsingsontwerper",
-  "headerTitle": "AI-bestendige toetsingsontwerper",
+  "pageTitle": "AI-Kwetsbaarheidstool voor Toetsing",
+  "headerTitle": "AI-Kwetsbaarheidstool voor Toetsing",
   "saveBtn": "Opslaan",
   "resetBtn": "Herstarten",
   "courseTitle": "Cursusnaam",
@@ -17,7 +17,7 @@
   "noAssessments": "Voeg hierboven toetsonderdelen toe om feedback te zien.",
   "consultText": "Wil je wijzigingen in je cursus bespreken met een expert? Neem gerust contact op!",
   "consultBtn": "Plan een consult",
-  "introTitle": "Welkom bij de AI-bestendige toetsingsontwerper!",
+  "introTitle": "Welkom bij de AI-Kwetsbaarheidstool voor Toetsing!",
   "introBody": "Deze tool is bedoeld om je te helpen de toetsstructuur van je cursus te heroverwegen. Vul om te beginnen de naam van je cursus in en selecteer vervolgens je toetsvormen. De kwetsbaarheidsscore past zich dynamisch aan op basis van je wijzigingen, dus voel je vrij om ermee te experimenteren. Houd er rekening mee dat deze score slechts een indicatie is.",
   "introCta": "Aan de slag",
   "yes": "Ja",

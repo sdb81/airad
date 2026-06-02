@@ -1,6 +1,6 @@
 {
-  "pageTitle": "AI-Resilient Assessment Designer",
-  "headerTitle": "AI-Resilient Assessment Designer",
+  "pageTitle": "Assessment AI Exposure Tool",
+  "headerTitle": "Assessment AI Exposure Tool",
   "saveBtn": "Save result",
   "resetBtn": "Reset",
   "courseTitle": "Course Title",
@@ -17,7 +17,7 @@
   "noAssessments": "Add assessments above to see feedback.",
   "consultText": "Want to discuss changes to your course with an expert? Feel free to reach out!",
   "consultBtn": "Schedule a consultation",
-  "introTitle": "Welcome to the AI-Resilient Assessment Designer!",
+  "introTitle": "Welcome to the Assessment AI Exposure Tool!",
   "introBody": "This tool is aimed to help you reconsider the assessment structure of your course. To get started, fill out your course name, and then select your forms of assessment. The vulnerability score dynamically updates based on your changes, so feel free to play around with it. Keep in mind that this score should be considered an indication.",
   "introCta": "Get started",
   "yes": "Yes",
