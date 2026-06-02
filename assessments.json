@@ -1,0 +1,57 @@
+[
+  {
+    "id": "group-work",
+    "risk": "high",
+    "toggles": ["intermediate"]
+  },
+  {
+    "id": "in-class-activity",
+    "risk": "low",
+    "toggles": []
+  },
+  {
+    "id": "in-person-exam",
+    "risk": "low",
+    "toggles": ["compensable"]
+  },
+  {
+    "id": "in-person-mc-laptop",
+    "risk": "high",
+    "toggles": []
+  },
+  {
+    "id": "oral-exam",
+    "risk": "low",
+    "toggles": []
+  },
+  {
+    "id": "participation",
+    "risk": "low",
+    "toggles": []
+  },
+  {
+    "id": "peer-review",
+    "risk": "medium",
+    "toggles": ["inclass"]
+  },
+  {
+    "id": "presentation",
+    "risk": "medium",
+    "toggles": ["qa"]
+  },
+  {
+    "id": "take-home-exam",
+    "risk": "high",
+    "toggles": []
+  },
+  {
+    "id": "take-home-mc",
+    "risk": "high",
+    "toggles": []
+  },
+  {
+    "id": "take-home-writing",
+    "risk": "high",
+    "toggles": ["intermediate"]
+  }
+]

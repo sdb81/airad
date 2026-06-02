@@ -1,0 +1,16 @@
+{
+  "riskScore": {
+    "high": 3,
+    "medium": 2,
+    "low": 1
+  },
+  "vulnerabilityThresholds": {
+    "lowMax": 30,
+    "mediumMax": 60,
+    "maxWithMustPass": 33
+  },
+  "highRiskMessageThresholds": {
+    "highOver60": 60,
+    "highOver40": 40
+  }
+}
