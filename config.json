@@ -11,6 +11,6 @@
   },
   "highRiskMessageThresholds": {
     "highOver60": 60,
-    "highOver40": 30 
+    "highOver40": 40 
   }
 }
