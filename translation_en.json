@@ -34,9 +34,9 @@
   "legendHigh": "High exposure",
   "legendMedium": "Medium exposure",
   "legendLow": "Low/no exposure",
-  "verdictLow": "🟢 Low AI Vulnerability",
-  "verdictMed": "🟡 Moderate AI Vulnerability",
-  "verdictHigh": "🔴 High AI Vulnerability",
+  "verdictLow": "🟢 Low AI Exposure",
+  "verdictMed": "🟡 Moderate AI Exposure",
+  "verdictHigh": "🔴 High AI Exposure",
   "labels": {
     "take-home-writing": "Take-home writing assignment",
     "take-home-exam": "Take-home exam",
