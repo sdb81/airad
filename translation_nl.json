@@ -83,8 +83,7 @@
   "msgGroupWorkNull": "Je hebt een groepsopdracht — geef hierboven aan of deze een tussenproduct/check-in en een individuele reflectie bevat.",
 
   "helpExposureTitle": "Hoe worden de scores bepaald?",
-  "helpExposureIntro": "De tool kent ieder toetsonderdeel een standaardniveau van blootstelling toe (hoog, medium of laag) op basis van hoe kwetsbaar de toetsvorm is voor AI-gebruik. Hieronder zie je hoe de toetsingsvormen worden ingedeeld.",
-
+  "helpExposureIntro": "De tool kent ieder toetsonderdeel een standaardniveau van blootstelling toe (hoog, medium of laag) op basis van hoe kwetsbaar de toetsvorm is voor AI-gebruik. Hieronder zie je hoe de toetsingsvormen worden ingedeeld. De eindscore is een gewogen gemiddelde van de blootstellingniveaus en dient als algemene indicatie, niet als een exacte meting.",
   "help_take-home-writing": "Studenten maken deze schrijfopdracht thuis en kunnen relatief eenvoudig AI gebruiken om hun tekst te (her)schrijven of te redigeren. Dit maakt het een toetsvorm met hoge blootstelling.",
   "help_take-home-exam": "Een tentamen dat studenten thuis maken, wordt niet gecontroleerd. Daardoor kunnen zij AI gebruiken om vragen te beantwoorden of hun antwoorden te laten controleren, zelfs bij tijdslimieten.",
   "help_take-home-mc": "Bij meerkeuzetentamens die thuis worden gemaakt kan AI zeer snel opties voorstellen of controleren voor de meeste vragen. Dit geldt ook wanneer specifiek cursusmateriaal wordt gebruikt, omdat studenten deze ook kunnen uploaden.",
