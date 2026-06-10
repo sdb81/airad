@@ -2,7 +2,7 @@
   {
     "id": "group-work",
     "risk": "high",
-    "toggles": ["intermediate"]
+    "toggles": ["intermediate", "reflection"]
   },
   {
     "id": "in-class-activity",

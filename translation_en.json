@@ -30,6 +30,7 @@
   "intermediate": "Intermediate product / check-in?",
   "inclass": "In-class component?",
   "qa": "Interactive element / Q&A?",
+  "reflection": "Individual reflection?",
   "totalWeight": "Total weight",
   "legendHigh": "High exposure",
   "legendMedium": "Medium exposure",
@@ -50,6 +51,7 @@
     "participation": "Participation",
     "in-class-activity": "In-class activity"
   },
+  "avvYes": "This assessment does not contribute to the final grade, and therefore does not impact the course's AI exposure, but still carries its own exposure level.",
   "compensableNo": "A non-compensable in-person exam means students must demonstrate their knowledge in a controlled, AI-free setting regardless of other grades. This significantly strengthens the overall AI resilience of the course. If other assessment is AI sensitive or relates to other learning goals, consider making these products 'build towards' the skills or knowledge tested on the in-person exam to encourage learning.",
   "compensableYes": "A compensable in-person exam still carries no AI exposure itself, but students can offset a poor result with other (potentially high-exposure) assessments. The course-level protection is therefore lower.",
   "intermediateYes": "An intermediate product or check-in can give you useful insight into student progress and thinking, but it does not insulate against AI use. Students can still use AI at any stage of the process.",
@@ -58,6 +60,8 @@
   "inclassNo": "Without an in-class component, peer review is done at home and students can use AI to write their feedback. Consider adding a brief in-class discussion or defence to verify authentic engagement.",
   "qaYes": "A mandatory Q&A or interactive element significantly reduces AI exposure, as students must demonstrate live mastery of their topic. Ensure questions are not superficial to be able to verify if students truly understand the subject.",
   "qaNo": "Without a Q&A or interactive element, students can rely heavily on AI-prepared scripts and slides. If space and time is available, consider adding this element to the assignment.",
+  "reflectionYes": "An individual reflection component helps verify personal engagement, making it harder for students to rely entirely on AI or other group members. It does not reduce AI exposure, however, as the group work and the reflection can still be AI-assisted, but may add a layer of accountability.",
+  "reflectionNo": "Without an individual reflection, it is difficult to verify each student's personal contribution and understanding. Consider adding one to strengthen accountability.",
   "verdictDescLowMustPass": "Your course includes a non-compensable in-person exam. Students must demonstrate their knowledge in a controlled setting, making AI-assisted passing of the course very difficult regardless of other components.",
   "verdictDescLow": "Your course is well-protected against AI misuse. Students are primarily assessed through methods that are difficult to outsource to AI.",
   "verdictDescMed": "Your course has a mixed profile. Some components are at risk. Consider whether high-exposure assessments can be partially replaced or complemented with lower-exposure formats, or if you can skew the weights of your assessment towards low-exposure options.",
@@ -71,7 +75,7 @@
   "msgNoLow": "You have no low/no-exposure assessments. Adding an in-person exam, oral exam, in-class activity, or graded participation can significantly improve AI resilience.",
   "msgCompensableYes": "<strong>Your in-person exam is compensable.</strong> It carries no AI exposure itself, but students can offset a poor result with grades from higher-exposure components. Consider making it non-compensable for stronger course-level protection.",
   "msgCompensableNull": "You have an in-person exam — please indicate above whether it is compensable to get accurate course-level feedback.",
-  "msgGroupWork": "<strong>Group work</strong> contains high AI exposure because AI contributions are hard to attribute or detect. Consider adding an individual reflection or oral defence component.",
+  "msgGroupWork": "<strong>Group work</strong> contains high AI exposure because AI contributions are hard to attribute or detect. An individual reflection or oral defence component can help mitigate this, but do not eliminate the possibility that students use AI.",
   "msgPeerReviewNull": "You have a peer review — please indicate above whether it includes an in-class component to get accurate course-level feedback.",
   "msgPresentation": "<strong>Presentations</strong> are medium-exposure: AI can help prepare slides and scripts, but a live interactive element or Q&A can substantially reduce that risk. Use the toggle above to indicate whether your presentation includes one.",
   "msgOralExam": "<strong>Oral exams</strong> are one of the most AI-resilient formats available, but may introduce other biases. Also ensure that students are challenged with difficult questions to prove their mastery of the topic."

@@ -15,6 +15,7 @@ let HAS_COMPENSABLE = [];
 let HAS_INTERMEDIATE = [];
 let HAS_INCLASS   = [];
 let HAS_QA = [];
+let HAS_REFLECTION = [];
 
 let assessments = [];
 let assessmentSectionsVisible = false;
@@ -59,6 +60,7 @@ async function loadAll() {
     if (a.toggles.includes("intermediate")) HAS_INTERMEDIATE.push(a.id);
     if (a.toggles.includes("inclass"))      HAS_INCLASS.push(a.id);
     if (a.toggles.includes("qa"))           HAS_QA.push(a.id);
+    if (a.toggles.includes("reflection"))   HAS_REFLECTION.push(a.id);
   });
 
   // Boot
@@ -220,6 +222,7 @@ function addAssessment() {
     intermediate: null,
     inclass:      null,
     qa:           null,
+    reflection:   null,
   });
 
   pctInput.value  = "";
@@ -280,7 +283,7 @@ function renderList() {
       const noActive  = a.compensable === "no"  ? "active-no"  : "";
       const noteHtml  =
         a.compensable === "no"  ? `<div class="toggle-note note-success">${tx.compensableNo}</div>` :
-        a.compensable === "yes" ? `<div class="toggle-note note-info">${tx.compensableYes}</div>` : "";
+        a.compensable === "yes" ? `<div class="toggle-note note-warn">${tx.compensableYes}</div>` : "";
 
       togglesHtml += `
         <div class="toggle-row">
@@ -329,6 +332,7 @@ function renderList() {
         ${noteHtml}`;
       
     }
+
     if (HAS_QA.includes(a.id)) {
       const yesActive = a.qa === "yes" ? "active-yes" : "";
       const noActive  = a.qa === "no"  ? "active-no"  : "";
@@ -346,8 +350,27 @@ function renderList() {
         </div>
         ${noteHtml}`;
     }
+    if (HAS_REFLECTION.includes(a.id)) {
+      const yesActive = a.reflection === "yes" ? "active-yes" : "";
+      const noActive  = a.reflection === "no"  ? "active-no"  : "";
+      const noteHtml  =
+        a.reflection === "yes" ? `<div class="toggle-note note-info">${tx.reflectionYes}</div>` :
+        a.reflection === "no"  ? `<div class="toggle-note note-warn">${tx.reflectionNo}</div>` : "";
 
-    const safeNote    = a.note.replace(/"/g, "&quot;");
+      togglesHtml += `
+        <div class="toggle-row">
+          <span class="toggle-label">${tx.reflection}</span>
+          <div class="toggle-btn-group">
+            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'reflection','yes')">${tx.yes}</button>
+            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'reflection','no')">${tx.no}</button>
+          </div>
+        </div>
+        ${noteHtml}`;  
+    }
+    if (a.pct === 0) {
+      togglesHtml += `<div class="toggle-note note-info">${tx.avvYes}</div>`;
+}
+      const safeNote    = a.note.replace(/"/g, "&quot;");
     const riskLabelKey = "risk" + a.risk.charAt(0).toUpperCase() + a.risk.slice(1);
 
     return `
@@ -364,6 +387,7 @@ function renderList() {
               oninput="updateNote(${i}, this.value)"
             />
           </div>
+          ${a.pct === 0 ? `<span class="avv-label">AVV</span>` : ""}
           <span class="item-badge badge-${a.risk}">${tx[riskLabelKey]}</span>
           <input
             class="item-pct-input"

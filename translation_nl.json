@@ -30,6 +30,7 @@
   "intermediate": "Tussenproduct / check-in?",
   "inclass": "Lesonderdeel?",
   "qa": "Interactief element / Q&A?",
+  "reflection": "Individuele reflectie?",
   "totalWeight": "Totale weging",
   "legendHigh": "Hoge blootstelling",
   "legendMedium": "Medium blootstelling",
@@ -50,6 +51,7 @@
     "participation": "Participatie",
     "in-class-activity": "Lesactiviteit"
   },
+  "avvYes": "Deze toetsvorm telt niet mee voor het eindcijfer of de AI-blootstellingscore van het vak, maar heeft wel een eigen blootstellingsniveau.",
   "compensableNo": "Een niet-compenseerbaar tentamen op locatie betekent dat studenten hun kennis moeten aantonen in een gecontroleerde, AI-vrije setting, ongeacht andere cijfers. Dit versterkt de AI-bestendigheid van de cursus aanzienlijk. Als andere toetsen AI-gevoelig zijn of op andere leerdoelen gericht zijn, overweeg dan om deze producten te laten 'toewerken naar' de vaardigheden of kennis die in het tentamen op locatie wordt getoetst, om het leren te stimuleren.",
   "compensableYes": "Een compenseerbaar tentamen op locatie kent zelf geen AI-blootstelling, maar studenten kunnen een slecht resultaat compenseren met andere (mogelijk risicovolle) toetsvormen. De bescherming op cursusniveau is daardoor lager.",
   "intermediateYes": "Een tussenproduct of check-in kan je inzicht geven in de voortgang en het denkproces van studenten, maar biedt geen bescherming tegen het gebruik van AI. Studenten kunnen op elk moment in het proces AI inzetten.",
@@ -58,6 +60,8 @@
   "inclassNo": "Zonder component tijdens de les vindt de peerreview thuis plaats en kunnen studenten AI gebruiken om hun feedback te schrijven. Overweeg een korte in-class discussie of verdediging toe te voegen om echte betrokkenheid te verifiëren.",
   "qaYes": "Een verplicht Q&A-onderdeel of interactief element verlaagt de AI-blootstelling, omdat studenten live moeten aantonen dat ze de stof beheersen. Zorg ervoor dat kritische vragen gesteld worden, zodat studenten dit daadwerkelijk moeten aantonen.",
   "qaNo": "Zonder Q&A of interactief element kunnen studenten sterk leunen op door AI voorbereide scripts en slides. Indien hier ruimte voor is, kan het aangeraden worden om dit toe te voegen aan de opdracht.",
+  "reflectionYes": "Een individuele reflectie helpt om persoonlijke betrokkenheid te verifiëren, waardoor het moeilijker wordt voor studenten om volledig te leunen op AI of andere groepsleden. Het elimineert de AI-blootstelling niet, aangezien de opdracht en de reflectie nog steeds met AI gemaakt kunnen worden,maar kan wel een laag van verantwoording toevoegen.",
+  "reflectionNo": "Zonder individuele reflectie is het moeilijk om de persoonlijke bijdrage van elke student te verifiëren. Overweeg er een toe te voegen om individuele verantwoording te versterken.",
   "verdictDescLowMustPass": "Je cursus bevat een niet-compenseerbaar tentamen op locatie. Studenten moeten hun kennis aantonen in een gecontroleerde setting, waardoor het zeer lastig wordt om de cursus met behulp van AI te halen, ongeacht andere onderdelen.",
   "verdictDescLow": "Je cursus is goed beschermd tegen misbruik van AI. Studenten worden vooral beoordeeld met toetsvormen die lastig zijn uit te besteden aan AI.",
   "verdictDescMed": "Je cursus heeft een gemengd profiel. Sommige onderdelen hebben een hoge AI-blootstelling. Overweeg of je risicovolle toetsvormen deels kunt vervangen of aanvullen met minder risicovolle vormen, of de weging meer kunt verschuiven richting opties met een lage blootstelling.",
@@ -71,7 +75,7 @@
   "msgNoLow": "Je hebt geen toetsvormen met lage of geen AI-blootstelling. Het toevoegen van een tentamen op locatie, mondeling tentamen, lesactiviteit of beoordeelde participatie kan de AI-bestendigheid aanzienlijk verbeteren.",
   "msgCompensableYes": "<strong>Je tentamen op locatie is compenseerbaar.</strong> Het kent zelf geen blootstelling aan AI, maar studenten kunnen een laag cijfer compenseren met cijfers uit risicovollere onderdelen. Overweeg het niet-compenseerbaar te maken voor sterkere bescherming op cursusniveau.",
   "msgCompensableNull": "Je hebt een tentamen op locatie — geef hierboven aan of dit compenseerbaar is om nauwkeurige feedback op cursusniveau te krijgen.",
-  "msgGroupWork": "<strong>Groepsopdrachten</strong> hebben een hoge blootstelling AI-bijdragen lastig toe te schrijven of te detecteren zijn. Overweeg een individuele reflectie of mondelinge verdediging toe te voegen.",
+  "msgGroupWork": "<strong>Groepsopdrachten</strong> hebben een hoge blootstelling, aangezien AI-bijdragen lastig toe te schrijven of te detecteren zijn. Een individuele reflectie of mondelinge verdediging kan hierbij helpen, al kunnen studenten nog steeds AI gebruiken.",
   "msgPeerReviewNull": "Je hebt een peerreview — geef hierboven aan of deze een lesonderdeel bevat om nauwkeurige feedback op cursusniveau te krijgen.",
   "msgPresentation": "<strong>Presentaties</strong> hebben een medium blootstelling: AI kan helpen bij het voorbereiden van slides en scripts, maar een live interactief element of Q&A kan dat risico aanzienlijk verkleinen. Gebruik de schakelaar hierboven om aan te geven of je presentatie dit bevat.",
   "msgOralExam": "<strong>Mondelinge tentamens</strong> zijn een van de meest AI-bestendige toetsvormen, maar kunnen andere vormen van bias introduceren. Zorg er ook voor dat studenten met uitdagende vragen worden geconfronteerd om hun beheersing van de stof aan te tonen."
