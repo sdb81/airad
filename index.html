@@ -919,6 +919,15 @@
         flex-direction: column;
         align-items: flex-start;
       }
+
+      .help-btn {
+        width: auto;
+        text-align: center;
+        padding: 4px 10px; /* already set, but okay to repeat */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
     } 
   </style>
 </head>
@@ -938,7 +947,7 @@
     <div class="intro-box intro-box-scrollable">
       <h2 id="exposure-help-title"></h2>
       <div id="exposure-help-body"></div>
-      <button type="button" class="intro-btn" onclick="closeExposureHelp()">Close</button>
+      <button type="button" class="intro-btn" id="exposure-help-close" onclick="closeExposureHelp()">Close</button>
     </div>
   </div>
 

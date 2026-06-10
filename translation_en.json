@@ -86,7 +86,7 @@
   "helpExposureIntro": "The tool assigns each assessment component a default exposure level (high, medium, or low) based on how exposed the assessment type is to AI use. Below, you can see how the main formats are classified.",
   "help_take-home-writing": "Students complete this writing assignment at home and can easily use AI to draft or (re)write their text. This makes it a high-exposure format.",
   "help_take-home-exam": "A take-home exam is unsupervised, so students can use AI to answer or check questions, even under time limits.",
-  "help_take-home-mc": "For multiple-choice exams at home, AI can very quickly suggest or verify answers for most questions. This can also occur when using specific course content or PowerPoints, as these can be uploaded by the student.",
+  "help_take-home-mc": "For multiple-choice exams at home, AI can very quickly suggest or verify answers for most questions. This can also occur when using specific course content, as these can be uploaded by the student.",
   "help_in-person-mc-laptop": "The exam is on campus, but students use their own devices. If device and network access are not strictly controlled, AI use remains possible.",
   "help_group-work": "Students can use AI to generate (most of) their assignments, and it is difficult to attribute contributions to individual students. Intermediate products and individual reflections increase visibility but do not remove the underlying exposure of this format.",
   "help_peer-review": "In take-home peer reviews, students can use AI to suggest feedback. An in-class peer review component reduces exposure by requiring live, supervised engagement.",

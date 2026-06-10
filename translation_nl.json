@@ -40,7 +40,7 @@
   "verdictMed": "🟡 Medium AI-blootstelling",
   "verdictHigh": "🔴 Hoge AI-blootstelling",
   "labels": {
-    "take-home-writing": "Schrijfopdracht thuis",
+    "take-home-writing": "Schrijfopdracht (thuis)",
     "take-home-exam": "Tentamen (thuis)",
     "take-home-mc": "Meerkeuzetentamen (thuis)",
     "in-person-mc-laptop": "Meerkeuzetentamen op locatie (eigen laptop)",
@@ -87,7 +87,7 @@
 
   "help_take-home-writing": "Studenten maken deze schrijfopdracht thuis en kunnen relatief eenvoudig AI gebruiken om hun tekst te (her)schrijven of te redigeren. Dit maakt het een toetsvorm met hoge blootstelling.",
   "help_take-home-exam": "Een tentamen dat studenten thuis maken, wordt niet gecontroleerd. Daardoor kunnen zij AI gebruiken om vragen te beantwoorden of hun antwoorden te laten controleren, zelfs bij tijdslimieten.",
-  "help_take-home-mc": "Bij meerkeuzetentamens die thuis worden gemaakt kan AI zeer snel opties voorstellen of controleren voor de meeste vragen. Dit geldt ook wanneer specifiek cursusmateriaal of PowerPoints worden gebruikt, omdat studenten deze ook kunnen uploaden.",
+  "help_take-home-mc": "Bij meerkeuzetentamens die thuis worden gemaakt kan AI zeer snel opties voorstellen of controleren voor de meeste vragen. Dit geldt ook wanneer specifiek cursusmateriaal wordt gebruikt, omdat studenten deze ook kunnen uploaden.",
   "help_in-person-mc-laptop": "Het tentamen vindt op locatie plaats, maar studenten werken op hun eigen apparaat. Als apparaat- en netwerktoegang niet strikt worden gecontroleerd, blijft AI-gebruik mogelijk.",
   "help_group-work": "Studenten kunnen AI inzetten om (een groot deel van) hun groepsopdrachten te genereren, en het is lastig om bijdragen aan individuele studenten toe te schrijven. Tussenproducten en individuele reflecties vergroten de zichtbaarheid, maar nemen de onderliggende blootstelling van deze toetsvorm niet weg.",
   "help_peer-review": "Bij peerreviews die studenten thuis uitvoeren, kunnen zij AI gebruiken om feedbackvoorstellen te genereren. Een peerreview-onderdeel tijdens de les verlaagt de blootstelling doordat studenten live en onder begeleiding met elkaars werk aan de slag gaan.",

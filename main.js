@@ -4,9 +4,9 @@ const STORAGE_KEY = "aiResilientAssessmentState";
 const INTRO_KEY   = "aiResilientAssessmentIntroSeen";
 const LANG_KEY    = "aiResilientAssessmentLang";
 
-let TX        = {};   // loaded from translation_en.json / translation_nl.json
-let ASSESSMENTS = []; // loaded from assessments.json
-let CONFIG    = {};   // loaded from config.json
+let TX        = {};   
+let ASSESSMENTS = []; 
+let CONFIG    = {};   
 
 // Derived lookup maps (built after ASSESSMENTS loads)
 let RISK          = {};
@@ -121,13 +121,16 @@ function applyStaticTranslations() {
   if (helpCloseBtn) {
     helpCloseBtn.textContent = tx.close || "Close";
   }
+
   const selectEl = document.getElementById("assessment-select");
   const previous = selectEl.value;
+
   const helpTitleEl = document.getElementById("exposure-help-title");
   if (helpTitleEl) {
-  helpTitleEl.textContent = tx.helpExposureTitle || "How are exposure scores decided?";
+    helpTitleEl.textContent = tx.helpExposureTitle || "How are exposure scores decided?";
   }
 
+  // Build the grouped help content with badges
   renderExposureHelpContent();
 
   selectEl.innerHTML = [...ASSESSMENT_IDS]
@@ -137,7 +140,6 @@ function applyStaticTranslations() {
 
   if (previous) selectEl.value = previous;
 }
-
 // ─── Persistence ──────────────────────────────────────────────────────────────
 function saveState() {
   try {
@@ -306,7 +308,7 @@ function renderExposureHelpContent() {
   };
 
   const legendLabels = {
-    high: tx.legendHigh,    // e.g. "High exposure"
+    high: tx.legendHigh, 
     medium: tx.legendMedium,
     low: tx.legendLow
   };
@@ -331,7 +333,7 @@ function renderExposureHelpContent() {
 
     ids.forEach(id => {
       const name = tx.labels && tx.labels[id] ? tx.labels[id] : id;
-      const descKey = "help_" + id;   // e.g. help_take-home-writing
+      const descKey = "help_" + id;
       const desc = tx[descKey] || "";
 
       html += `
@@ -669,21 +671,21 @@ function getCourseTitleForFilename() {
 function saveResult() {
   if (typeof html2canvas === "undefined") return;
 
-  const addCard  = document.getElementById("add-card");
-  const wasHidden = addCard.classList.contains("hidden");
-
-  if (!wasHidden) addCard.classList.add("hidden");
-
-  html2canvas(document.body, { scale: 2, useCORS: true })
-    .then(canvas => {
-      const link = document.createElement("a");
-      link.href     = canvas.toDataURL("image/png");
-      link.download = `${getCourseTitleForFilename()}-assessment-designer.png`;
-      link.click();
-    })
-    .finally(() => {
-      if (!wasHidden) addCard.classList.remove("hidden");
-    });
+  html2canvas(document.body, {
+    scale: 2,
+    useCORS: true,
+    onclone: clonedDoc => {
+      const addCardClone = clonedDoc.getElementById("add-card");
+      if (addCardClone) {
+        addCardClone.classList.add("hidden");
+      }
+    }
+  }).then(canvas => {
+    const link = document.createElement("a");
+    link.href     = canvas.toDataURL("image/png");
+    link.download = `${getCourseTitleForFilename()}-assessment-designer.png`;
+    link.click();
+  });
 }
 
 // ─── Reset ────────────────────────────────────────────────────────────────────
