@@ -180,6 +180,26 @@
       letter-spacing: 0.07em;
     }
 
+    .card-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .card-header-row h2 {
+      margin-bottom: 0;
+    }
+
+    .help-btn {
+      padding: 4px 10px;
+      font-size: 0.86rem;
+      line-height: 1;
+      border: none;
+      cursor: pointer;
+    }
+
     .course-title-input {
       width: 100%;
       padding: 9px 12px;
@@ -394,6 +414,37 @@
     .badge-low {
       background: #b7c6b0;
       color: #1a5425;
+    }
+    
+   .exposure-group {
+      margin-top: 16px;
+    }
+
+    .exposure-group-header {
+      margin-bottom: 6px;
+    }
+
+    .exposure-item {
+      padding: 8px 0;
+      border-top: 1px solid #e6e5e3;
+    }
+
+    .exposure-item:first-of-type {
+      border-top: none;
+    }
+
+    .exposure-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+
+    .exposure-item p {
+      font-size: 0.83rem;
+      color: #555;
+      line-height: 1.5;
     }
 
     .item-pct-input {
@@ -743,6 +794,18 @@
       line-height: 1.65;
     }
 
+    .intro-box-scrollable {
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #exposure-help-body {
+      flex: 1;
+      overflow-y: auto;             
+      margin-bottom: 16px;          
+    }
+
     .intro-btn {
       display: inline-block;
       padding: 9px 22px;
@@ -870,6 +933,15 @@
     </div>
   </div>
 
+  <!-- Exposure help overlay -->
+  <div id="exposure-help-overlay" class="intro-overlay">
+    <div class="intro-box intro-box-scrollable">
+      <h2 id="exposure-help-title"></h2>
+      <div id="exposure-help-body"></div>
+      <button type="button" class="intro-btn" onclick="closeExposureHelp()">Close</button>
+    </div>
+  </div>
+
   <!-- Header -->
   <div class="header-bar">
     <div class="uva-logo-wrap">
@@ -923,9 +995,20 @@
 
     <!-- Feedback -->
     <div class="card hidden" id="feedback-card">
+    <div class="card-header-row">
       <h2 id="label-feedback"></h2>
-      <div id="feedback-content"></div>
+      <button
+        type="button"
+        class="consult-btn help-btn"
+        id="exposure-help-btn"
+        onclick="openExposureHelp()"
+        title="How are exposure scores decided?"
+      >
+        ?
+      </button>
     </div>
+    <div id="feedback-content"></div>
+  </div>
 
     <!-- Consult CTA -->
     <div class="consult-card">

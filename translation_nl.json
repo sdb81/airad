@@ -16,10 +16,11 @@
   "feedback": "Feedback",
   "noAssessments": "Voeg hierboven toetsonderdelen toe om feedback te zien.",
   "consultText": "Wil je wijzigingen in je cursus bespreken met een expert? Neem gerust contact op!",
-  "consultBtn": "Plan een consult",
+  "consultBtn": "Plan een consult in",
   "introTitle": "Welkom bij de AI-Kwetsbaarheidstool voor Toetsing!",
   "introBody": "Deze tool is bedoeld om je te helpen de toetsstructuur van je cursus te heroverwegen. Vul om te beginnen de naam van je cursus in en selecteer vervolgens je toetsvormen. De kwetsbaarheidsscore past zich dynamisch aan op basis van je wijzigingen, dus voel je vrij om ermee te experimenteren. Houd er rekening mee dat deze score slechts een indicatie is.",
   "introCta": "Aan de slag",
+  "close": "Sluiten",
   "yes": "Ja",
   "no": "Nee",
   "riskHigh": "hoge blootstelling",
@@ -77,7 +78,22 @@
   "msgCompensableNull": "Je hebt een tentamen op locatie — geef hierboven aan of dit compenseerbaar is om nauwkeurige feedback op cursusniveau te krijgen.",
   "msgGroupWork": "<strong>Groepsopdrachten</strong> hebben een hoge blootstelling, aangezien AI-bijdragen lastig toe te schrijven of te detecteren zijn. Een individuele reflectie of mondelinge verdediging kan hierbij helpen, al kunnen studenten nog steeds AI gebruiken.",
   "msgPeerReviewNull": "Je hebt een peerreview — geef hierboven aan of deze een lesonderdeel bevat om nauwkeurige feedback op cursusniveau te krijgen.",
-  "msgPresentation": "<strong>Presentaties</strong> hebben een medium blootstelling: AI kan helpen bij het voorbereiden van slides en scripts, maar een live interactief element of Q&A kan dat risico aanzienlijk verkleinen. Gebruik de schakelaar hierboven om aan te geven of je presentatie dit bevat.",
+  "msgPresentation": "<strong>Presentaties</strong> hebben een medium blootstelling: AI kan helpen bij het voorbereiden van slides en tekst, maar een live interactief element of Q&A kan dat risico aanzienlijk verkleinen. Gebruik de schakelaar hierboven om aan te geven of je presentatie dit bevat.",
   "msgOralExam": "<strong>Mondelinge tentamens</strong> zijn een van de meest AI-bestendige toetsvormen, maar kunnen andere vormen van bias introduceren. Zorg er ook voor dat studenten met uitdagende vragen worden geconfronteerd om hun beheersing van de stof aan te tonen.",
-  "msgGroupWorkNull": "Je hebt een groepsopdracht — geef hierboven aan of deze een tussenproduct/check-in en een individuele reflectie bevat."
+  "msgGroupWorkNull": "Je hebt een groepsopdracht — geef hierboven aan of deze een tussenproduct/check-in en een individuele reflectie bevat.",
+
+  "helpExposureTitle": "Hoe worden de scores bepaald?",
+  "helpExposureIntro": "De tool kent ieder toetsonderdeel een standaardniveau van blootstelling toe (hoog, medium of laag) op basis van hoe kwetsbaar de toetsvorm is voor AI-gebruik. Hieronder zie je hoe de toetsingsvormen worden ingedeeld.",
+
+  "help_take-home-writing": "Studenten maken deze schrijfopdracht thuis en kunnen relatief eenvoudig AI gebruiken om hun tekst te (her)schrijven of te redigeren. Dit maakt het een toetsvorm met hoge blootstelling.",
+  "help_take-home-exam": "Een tentamen dat studenten thuis maken, wordt niet gecontroleerd. Daardoor kunnen zij AI gebruiken om vragen te beantwoorden of hun antwoorden te laten controleren, zelfs bij tijdslimieten.",
+  "help_take-home-mc": "Bij meerkeuzetentamens die thuis worden gemaakt kan AI zeer snel opties voorstellen of controleren voor de meeste vragen. Dit geldt ook wanneer specifiek cursusmateriaal of PowerPoints worden gebruikt, omdat studenten deze ook kunnen uploaden.",
+  "help_in-person-mc-laptop": "Het tentamen vindt op locatie plaats, maar studenten werken op hun eigen apparaat. Als apparaat- en netwerktoegang niet strikt worden gecontroleerd, blijft AI-gebruik mogelijk.",
+  "help_group-work": "Studenten kunnen AI inzetten om (een groot deel van) hun groepsopdrachten te genereren, en het is lastig om bijdragen aan individuele studenten toe te schrijven. Tussenproducten en individuele reflecties vergroten de zichtbaarheid, maar nemen de onderliggende blootstelling van deze toetsvorm niet weg.",
+  "help_peer-review": "Bij peerreviews die studenten thuis uitvoeren, kunnen zij AI gebruiken om feedbackvoorstellen te genereren. Een peerreview-onderdeel tijdens de les verlaagt de blootstelling doordat studenten live en onder begeleiding met elkaars werk aan de slag gaan.",
+  "help_presentation": "Presentaties hebben een medium blootstelling: AI kan helpen bij het voorbereiden van slides en tekst, maar studenten moeten nog steeds live presenteren. Een verplicht Q&A-gedeelte of interactief element verlaagt de blootstelling van deze toetsvorm.",
+  "help_in-person-exam": "Dit tentamen vindt plaats in een gecontroleerde setting waarin AI-gebruik niet mogelijk is. Er is daarom geen AI-blootstelling.",
+  "help_oral-exam": "Bij mondelinge tentamens moeten studenten direct op vragen reageren en kunnen vervolgvragen gesteld worden op basis van hun antwoorden. Studenten kunnen zich met behulp van AI voorbereiden, maar uitdagende vragen tijdens het gesprek beperken de mogelijkheden om op AI te leunen.",
+  "help_participation": "Beoordeelde participatie is gebaseerd op zichtbare betrokkenheid en bijdragen in de les, waardoor er weinig ruimte is voor AI om de inspanning van studenten te vervangen.",
+  "help_in-class-activity": "Lesactiviteiten vinden plaats onder toezicht. Studenten kunnen zich met AI voorbereiden, maar het beoordeelde werk of gedrag wordt live in de les getoond."
 }

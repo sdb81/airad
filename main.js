@@ -117,8 +117,18 @@ function applyStaticTranslations() {
   document.getElementById("intro-body").textContent          = tx.introBody;
   document.getElementById("intro-cta").textContent           = tx.introCta;
 
+  const helpCloseBtn = document.getElementById("exposure-help-close");
+  if (helpCloseBtn) {
+    helpCloseBtn.textContent = tx.close || "Close";
+  }
   const selectEl = document.getElementById("assessment-select");
   const previous = selectEl.value;
+  const helpTitleEl = document.getElementById("exposure-help-title");
+  if (helpTitleEl) {
+  helpTitleEl.textContent = tx.helpExposureTitle || "How are exposure scores decided?";
+  }
+
+  renderExposureHelpContent();
 
   selectEl.innerHTML = [...ASSESSMENT_IDS]
     .sort((a, b) => (tx.labels[a] || a).localeCompare(tx.labels[b] || b))
@@ -263,6 +273,81 @@ function setToggle(index, field, value) {
 function render() {
   renderList();
   renderFeedback();
+}
+
+function renderExposureHelpContent() {
+  const bodyEl = document.getElementById("exposure-help-body");
+  if (!bodyEl) return;
+
+  const tx = TX[lang];
+
+  // Short intro text
+  const intro = tx.helpExposureIntro || "";
+
+  // Group assessments by their default risk level
+  const groups = {
+    high: [
+      "take-home-writing",
+      "take-home-exam",
+      "take-home-mc",
+      "in-person-mc-laptop",
+      "group-work"
+    ],
+    medium: [
+      "peer-review",
+      "presentation"
+    ],
+    low: [
+      "in-person-exam",
+      "oral-exam",
+      "participation",
+      "in-class-activity"
+    ]
+  };
+
+  const legendLabels = {
+    high: tx.legendHigh,    // e.g. "High exposure"
+    medium: tx.legendMedium,
+    low: tx.legendLow
+  };
+
+  let html = "";
+  if (intro) {
+    html += `<p>${intro}</p>`;
+  }
+
+  ["high", "medium", "low"].forEach(level => {
+    const ids = groups[level];
+    if (!ids || !ids.length) return;
+
+    const headerText = legendLabels[level] || level;
+
+    html += `
+      <div class="exposure-group">
+        <div class="exposure-group-header">
+          <span class="item-badge badge-${level}">${headerText}</span>
+        </div>
+    `;
+
+    ids.forEach(id => {
+      const name = tx.labels && tx.labels[id] ? tx.labels[id] : id;
+      const descKey = "help_" + id;   // e.g. help_take-home-writing
+      const desc = tx[descKey] || "";
+
+      html += `
+        <div class="exposure-item">
+          <div class="exposure-item-header">
+            <span class="item-name">${name}</span>
+          </div>
+          ${desc ? `<p>${desc}</p>` : ""}
+        </div>
+      `;
+    });
+
+    html += `</div>`;
+  });
+
+  bodyEl.innerHTML = html;
 }
 
 function renderList() {
@@ -634,6 +719,19 @@ function maybeShowIntro() {
 function dismissIntro() {
   document.getElementById("intro-overlay").style.display = "none";
   try { localStorage.setItem(INTRO_KEY, "1"); } catch (e) {}
+}
+function openExposureHelp() {
+  const overlay = document.getElementById("exposure-help-overlay");
+  if (overlay) {
+    overlay.style.display = "flex";
+  }
+}
+
+function closeExposureHelp() {
+  const overlay = document.getElementById("exposure-help-overlay");
+  if (overlay) {
+    overlay.style.display = "none";
+  }
 }
 
 // ─── Event listeners ──────────────────────────────────────────────────────────
