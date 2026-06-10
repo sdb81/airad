@@ -78,5 +78,6 @@
   "msgGroupWork": "<strong>Group work</strong> contains high AI exposure because AI contributions are hard to attribute or detect. An individual reflection or oral defence component can help mitigate this, but do not eliminate the possibility that students use AI.",
   "msgPeerReviewNull": "You have a peer review — please indicate above whether it includes an in-class component to get accurate course-level feedback.",
   "msgPresentation": "<strong>Presentations</strong> are medium-exposure: AI can help prepare slides and scripts, but a live interactive element or Q&A can substantially reduce that risk. Use the toggle above to indicate whether your presentation includes one.",
-  "msgOralExam": "<strong>Oral exams</strong> are one of the most AI-resilient formats available, but may introduce other biases. Also ensure that students are challenged with difficult questions to prove their mastery of the topic."
+  "msgOralExam": "<strong>Oral exams</strong> are one of the most AI-resilient formats available, but may introduce other biases. Also ensure that students are challenged with difficult questions to prove their mastery of the topic.",
+  "msgGroupWorkNull": "You have a group project — please indicate above whether it includes an intermediate product/check-in and an individual reflection."
 }

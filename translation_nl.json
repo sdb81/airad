@@ -78,5 +78,6 @@
   "msgGroupWork": "<strong>Groepsopdrachten</strong> hebben een hoge blootstelling, aangezien AI-bijdragen lastig toe te schrijven of te detecteren zijn. Een individuele reflectie of mondelinge verdediging kan hierbij helpen, al kunnen studenten nog steeds AI gebruiken.",
   "msgPeerReviewNull": "Je hebt een peerreview — geef hierboven aan of deze een lesonderdeel bevat om nauwkeurige feedback op cursusniveau te krijgen.",
   "msgPresentation": "<strong>Presentaties</strong> hebben een medium blootstelling: AI kan helpen bij het voorbereiden van slides en scripts, maar een live interactief element of Q&A kan dat risico aanzienlijk verkleinen. Gebruik de schakelaar hierboven om aan te geven of je presentatie dit bevat.",
-  "msgOralExam": "<strong>Mondelinge tentamens</strong> zijn een van de meest AI-bestendige toetsvormen, maar kunnen andere vormen van bias introduceren. Zorg er ook voor dat studenten met uitdagende vragen worden geconfronteerd om hun beheersing van de stof aan te tonen."
+  "msgOralExam": "<strong>Mondelinge tentamens</strong> zijn een van de meest AI-bestendige toetsvormen, maar kunnen andere vormen van bias introduceren. Zorg er ook voor dat studenten met uitdagende vragen worden geconfronteerd om hun beheersing van de stof aan te tonen.",
+  "msgGroupWorkNull": "Je hebt een groepsopdracht — geef hierboven aan of deze een tussenproduct/check-in en een individuele reflectie bevat."
 }

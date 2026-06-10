@@ -504,10 +504,16 @@ function renderFeedback() {
     messages.push({ type: "warn", icon: "❓", text: tx.msgCompensableNull });
   }
 
+
+
   // Group work
   if (assessments.some(a => a.id === "group-work")) {
+  if (assessments.some(a => a.id === "group-work" && (a.intermediate === null || a.reflection === null))) {
+    messages.push({ type: "warn", icon: "❓", text: tx.msgGroupWorkNull });
+  } else {
     messages.push({ type: "info", icon: "ℹ️", text: tx.msgGroupWork });
   }
+}
 
   // Peer review without inclass answer
   if (assessments.some(a => a.id === "peer-review" && a.inclass === null)) {
@@ -521,7 +527,7 @@ function renderFeedback() {
 
   // Oral exam
   if (assessments.some(a => a.id === "oral-exam")) {
-    messages.push({ type: "success", icon: "🎓", text: tx.msgOralExam });
+    messages.push({ type: "success", icon: "🗣️", text: tx.msgOralExam });
   }
 
   feedbackEl.innerHTML = `
@@ -539,7 +545,6 @@ function renderFeedback() {
             stroke="${gaugeColor}"
             stroke-width="9"
             stroke-dasharray="${filled} ${circumference}"
-            stroke-dashoffset="${circumference * 0.25}"
             stroke-linecap="round"
             transform="rotate(-90 ${cx} ${cy})"
           ></circle>
