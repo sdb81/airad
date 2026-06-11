@@ -9,7 +9,6 @@ For each assessment component:
 2. Multiply that by the component’s weight in the final grade;
 3. Sum over all components: weighted.  
 4. Also sum the weights: total.  
-5. Compute:
+5. Calculation:
    vulnerability=round((weighted−total​)/(2⋅total)⋅100)
-$$
- and cap it if there is a non‑compensable in‑person exam.
+ Gets capped if there is a non‑compensable in‑person exam.
