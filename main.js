@@ -16,6 +16,7 @@ let HAS_INTERMEDIATE = [];
 let HAS_INCLASS   = [];
 let HAS_QA = [];
 let HAS_REFLECTION = [];
+let HAS_ORAL = [];
 
 let assessments = [];
 let assessmentSectionsVisible = false;
@@ -52,7 +53,7 @@ async function loadAll() {
   HAS_COMPENSABLE = [];
   HAS_INTERMEDIATE = [];
   HAS_INCLASS = [];
-
+  HAS_ORAL = [];
   ASSESSMENTS.forEach(a => {
     RISK[a.id] = a.risk;
     ASSESSMENT_IDS.push(a.id);
@@ -61,6 +62,7 @@ async function loadAll() {
     if (a.toggles.includes("inclass"))      HAS_INCLASS.push(a.id);
     if (a.toggles.includes("qa"))           HAS_QA.push(a.id);
     if (a.toggles.includes("reflection"))   HAS_REFLECTION.push(a.id);
+    if (a.toggles.includes("oral"))         HAS_ORAL.push(a.id);
   });
 
   // Boot
@@ -166,7 +168,17 @@ function loadState() {
         }
       }
 
-      if (Array.isArray(state.assessments)) assessments = state.assessments;
+      if (Array.isArray(state.assessments)) {
+        assessments = state.assessments.map(a => ({
+          compensable:  null,
+          intermediate: null,
+          inclass:      null,
+          qa:           null,
+          reflection:   null,
+          oral:         null,
+          ...a  // existing values overwrite the defaults
+        }));
+      }
 
       assessmentSectionsVisible =
         typeof state.assessmentSectionsVisible === "boolean"
@@ -235,6 +247,7 @@ function addAssessment() {
     inclass:      null,
     qa:           null,
     reflection:   null,
+    oral:         null
   });
 
   pctInput.value  = "";
@@ -401,6 +414,24 @@ function renderList() {
         ${noteHtml}`;
     }
 
+    if (HAS_ORAL.includes(a.id)) {
+      const yesActive = a.oral === "yes" ? "active-yes" : "";
+      const noActive  = a.oral === "no"  ? "active-no"  : "";
+      const noteHtml  =
+        a.oral === "yes" ? `<div class="toggle-note note-info">${tx.oralYes}</div>` :
+        a.oral === "no"  ? `<div class="toggle-note note-warn">${tx.oralNo}</div>` : "";
+
+      togglesHtml += `
+        <div class="toggle-row">
+          <span class="toggle-label">${tx.oral}</span>
+          <div class="toggle-btn-group">
+            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'oral','yes')">${tx.yes}</button>
+            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'oral','no')">${tx.no}</button>
+          </div>
+        </div>
+        ${noteHtml}`;
+    } 
+
     if (HAS_INCLASS.includes(a.id)) {
       const yesActive = a.inclass === "yes" ? "active-yes" : "";
       const noActive  = a.inclass === "no"  ? "active-no"  : "";
@@ -511,9 +542,14 @@ function renderFeedback() {
     a => a.id === "in-person-exam" && a.compensable === "no"
   );
 
+  const highPct = assessments.filter(a => a.risk === "high").reduce((s, a) => s + a.pct, 0);
+  const medPct  = assessments.filter(a => a.risk === "medium").reduce((s, a) => s + a.pct, 0);
+  const lowPct  = assessments.filter(a => a.risk === "low").reduce((s, a) => s + a.pct, 0);
+
   const effScore = a =>
     (a.id === "peer-review" && a.inclass === "yes") ? 1 :
     (a.id === "presentation" && a.qa === "yes") ? 1.25 :
+    (a.id === "take-home-writing" && a.oral === "yes") ? 2.5 :
     RISK_SCORE[a.risk];
   const weighted = assessments.reduce((sum, a) => sum + effScore(a) * a.pct, 0);
 
@@ -523,10 +559,15 @@ function renderFeedback() {
   if (hasMustPass) {
     vulnerability = Math.min(vulnerability, thresholds.maxWithMustPass);
   }
-
-  const highPct = assessments.filter(a => a.risk === "high").reduce((s, a) => s + a.pct, 0);
-  const medPct  = assessments.filter(a => a.risk === "medium").reduce((s, a) => s + a.pct, 0);
-  const lowPct  = assessments.filter(a => a.risk === "low").reduce((s, a) => s + a.pct, 0);
+  if (lowPct / total >= 0.65) {
+  vulnerability = Math.min(vulnerability, thresholds.lowMax);
+  }
+  const mustPassPct = assessments
+    .filter(a => a.id === "in-person-exam" && a.compensable === "no")
+    .reduce((sum, a) => sum + a.pct, 0);
+  if (mustPassPct >= 55) {
+  vulnerability = Math.min(vulnerability, thresholds.lowMax);
+}
 
   let gaugeColor, verdictText, verdictDesc;
 
@@ -590,16 +631,18 @@ function renderFeedback() {
   if (assessments.some(a => a.id === "in-person-exam" && a.compensable === null)) {
     messages.push({ type: "warn", icon: "❓", text: tx.msgCompensableNull });
   }
-
-
+ // Oral component in take-home writing
+  if (assessments.some(a => a.id === "take-home-writing" && a.oral === null)) {
+    messages.push({ type: "warn", icon: "❓", text: tx.msgTakeHomeNull });
+  }
 
   // Group work
   if (assessments.some(a => a.id === "group-work")) {
-  if (assessments.some(a => a.id === "group-work" && (a.intermediate === null || a.reflection === null))) {
-    messages.push({ type: "warn", icon: "❓", text: tx.msgGroupWorkNull });
-  } else {
-    messages.push({ type: "info", icon: "ℹ️", text: tx.msgGroupWork });
-  }
+    if (assessments.some(a => a.id === "group-work" && (a.intermediate === null || a.reflection === null || a.oral === null))) {
+      messages.push({ type: "warn", icon: "❓", text: tx.msgGroupWorkNull });
+    } else {
+      messages.push({ type: "info", icon: "ℹ️", text: tx.msgGroupWork });
+}
 }
 
   // Peer review without inclass answer
