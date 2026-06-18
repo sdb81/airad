@@ -550,6 +550,8 @@ function renderFeedback() {
     (a.id === "peer-review" && a.inclass === "yes") ? 1 :
     (a.id === "presentation" && a.qa === "yes") ? 1.25 :
     (a.id === "take-home-writing" && a.oral === "yes") ? 2.5 :
+    (a.id === "group-work" && a.oral === "yes") ? 2.5 :
+
     RISK_SCORE[a.risk];
   const weighted = assessments.reduce((sum, a) => sum + effScore(a) * a.pct, 0);
 
