@@ -12,3 +12,4 @@ For each assessment component:
 5. Calculation:
    vulnerability=round((weighted−total​)/(2⋅total)⋅100)
  Gets capped if there is a non‑compensable in‑person exam.
+ The final test hopefully.
