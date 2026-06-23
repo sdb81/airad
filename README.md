@@ -7,7 +7,7 @@ Current url: rss.denbroeder.eu/host/assessment
 Please see Issues > Feedback for what we're working on!
 
 ## Analytics
-This site uses a self-hosted instance of [Umami](https://umami.is), a privacy-focused analytics tool. This is only used for understanding the general popularity of the page, and not for individual tracking.
+This site uses a self-hosted instance of [Umami](https://umami.is), a privacy-focused analytics tool. This is only used for understanding the general popularity of the page, and not for individualised tracking.
 
 ### What Umami tracks
 - Page views
@@ -15,7 +15,7 @@ This site uses a self-hosted instance of [Umami](https://umami.is), a privacy-fo
 - Browser, operating system, and device type
 - Country of origin
 
-### What Umami cannot track
+### What Umami does not track
 - No personal data or identifiable information
 - No cookies
 - No cross-site tracking
