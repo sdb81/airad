@@ -3,6 +3,8 @@
 const STORAGE_KEY = "aiResilientAssessmentState";
 const INTRO_KEY   = "aiResilientAssessmentIntroSeen";
 const LANG_KEY    = "aiResilientAssessmentLang";
+const VERSION_KEY = "aiResilientAssessmentVersion";
+const THEME_KEY = "aiExposureTheme";
 
 let TX        = {};   
 let ASSESSMENTS = []; 
@@ -36,12 +38,22 @@ function t(key) {
 
 // ─── Data loading ─────────────────────────────────────────────────────────────
 async function loadAll() {
-  const [enRaw, nlRaw, assessmentsRaw, configRaw] = await Promise.all([
-    fetch("translation_en.json").then(r => r.json()),
-    fetch("translation_nl.json").then(r => r.json()),
-    fetch("assessments.json").then(r => r.json()),
-    fetch("config.json").then(r => r.json()),
-  ]);
+  let enRaw, nlRaw, assessmentsRaw, configRaw;
+
+  try {
+    [enRaw, nlRaw, assessmentsRaw, configRaw] = await Promise.all([
+      fetch("translation_en.json").then(r => r.json()),
+      fetch("translation_nl.json").then(r => r.json()),
+      fetch("assessments.json").then(r => r.json()),
+      fetch("config.json").then(r => r.json()),
+    ]);
+  } catch (e) {
+    document.getElementById("assessment-select").innerHTML =
+      `<option disabled selected>⚠ Could not load assessment data. Please refresh.</option>`;
+    document.getElementById("add-card").classList.remove("hidden");
+    console.error("Failed to load data files:", e);
+    return;
+  }
 
   TX = { en: enRaw, nl: nlRaw };
   ASSESSMENTS = assessmentsRaw;
@@ -145,6 +157,7 @@ function applyStaticTranslations() {
 // ─── Persistence ──────────────────────────────────────────────────────────────
 function saveState() {
   try {
+    localStorage.setItem(VERSION_KEY, CONFIG.version);  // add this line
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       courseTitle: document.getElementById("course-title").value || "",
       assessments,
@@ -155,6 +168,14 @@ function saveState() {
 
 function loadState() {
   try {
+    const savedVersion = parseInt(localStorage.getItem(VERSION_KEY) || "0", 10);
+    if (savedVersion !== CONFIG.version) {
+      localStorage.removeItem(STORAGE_KEY);
+      localStorage.setItem(VERSION_KEY, CONFIG.version);
+      render();
+      return;
+    }
+
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) { render(); return; }
 
@@ -389,8 +410,8 @@ function renderList() {
         <div class="toggle-row">
           <span class="toggle-label">${tx.compensable}</span>
           <div class="toggle-btn-group">
-            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'compensable','yes')">${tx.yes}</button>
-            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'compensable','no')">${tx.no}</button>
+            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'compensable','yes')" aria-pressed="${a.compensable === 'yes'}">${tx.yes}</button>
+            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'compensable','no')"  aria-pressed="${a.compensable === 'no'}">${tx.no}</button>
           </div>
         </div>
         ${noteHtml}`;
@@ -407,8 +428,8 @@ function renderList() {
         <div class="toggle-row">
           <span class="toggle-label">${tx.intermediate}</span>
           <div class="toggle-btn-group">
-            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'intermediate','yes')">${tx.yes}</button>
-            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'intermediate','no')">${tx.no}</button>
+            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'intermediate','yes')" aria-pressed="${a.intermediate === 'yes'}">${tx.yes}</button>
+            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'intermediate','no')"  aria-pressed="${a.intermediate === 'no'}">${tx.no}</button>
           </div>
         </div>
         ${noteHtml}`;
@@ -425,8 +446,8 @@ function renderList() {
         <div class="toggle-row">
           <span class="toggle-label">${tx.oral}</span>
           <div class="toggle-btn-group">
-            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'oral','yes')">${tx.yes}</button>
-            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'oral','no')">${tx.no}</button>
+            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'oral','yes')" aria-pressed="${a.oral === 'yes'}">${tx.yes}</button>
+            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'oral','no')"  aria-pressed="${a.oral === 'no'}">${tx.no}</button>
           </div>
         </div>
         ${noteHtml}`;
@@ -443,8 +464,8 @@ function renderList() {
         <div class="toggle-row">
           <span class="toggle-label">${tx.inclass}</span>
           <div class="toggle-btn-group">
-            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'inclass','yes')">${tx.yes}</button>
-            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'inclass','no')">${tx.no}</button>
+            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'inclass','yes')" aria-pressed="${a.inclass === 'yes'}">${tx.yes}</button>
+            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'inclass','no')"  aria-pressed="${a.inclass === 'no'}">${tx.no}</button>
           </div>
         </div>
         ${noteHtml}`;
@@ -462,8 +483,8 @@ function renderList() {
         <div class="toggle-row">
           <span class="toggle-label">${tx.qa}</span>
           <div class="toggle-btn-group">
-            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'qa','yes')">${tx.yes}</button>
-            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'qa','no')">${tx.no}</button>
+            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'qa','yes')" aria-pressed="${a.qa === 'yes'}">${tx.yes}</button>
+            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'qa','no')"  aria-pressed="${a.qa === 'no'}">${tx.no}</button>
           </div>
         </div>
         ${noteHtml}`;
@@ -479,8 +500,8 @@ function renderList() {
         <div class="toggle-row">
           <span class="toggle-label">${tx.reflection}</span>
           <div class="toggle-btn-group">
-            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'reflection','yes')">${tx.yes}</button>
-            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'reflection','no')">${tx.no}</button>
+            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'reflection','yes')" aria-pressed="${a.reflection === 'yes'}">${tx.yes}</button>
+            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'reflection','no')"  aria-pressed="${a.reflection === 'no'}">${tx.no}</button>
           </div>
         </div>
         ${noteHtml}`;  
@@ -516,7 +537,7 @@ function renderList() {
             onchange="updatePct(${i}, this.value)"
           />
           <span style="font-size:0.78rem;color:#a8a29f">%</span>
-          <button class="remove-btn" onclick="removeAssessment(${i})" title="Remove">&#x2715;</button>
+          <button class="remove-btn" onclick="removeAssessment(${i})" aria-label="Remove ${name}">&#x2715;</button>
         </div>
         ${togglesHtml ? `<div class="item-toggles">${togglesHtml}</div>` : ""}
       </div>`;
@@ -716,6 +737,17 @@ function getCourseTitleForFilename() {
 function saveResult() {
   if (typeof html2canvas === "undefined") return;
 
+  const total = assessments.reduce((sum, a) => sum + a.pct, 0);
+  if (total !== 100) {
+    const tx = TX[lang];
+    const raw = total > 100
+      ? tx.msgWeightsOver?.replace("{total}", total)
+      : tx.msgWeightsUnder?.replace("{total}", total).replace("{remaining}", 100 - total);
+    const plain = (raw ?? "").replace(/<[^>]*>/g, "");
+    alert(plain);
+    return;
+  }
+
   html2canvas(document.body, {
     scale: 2,
     useCORS: true,
@@ -757,9 +789,13 @@ function resetState() {
 function maybeShowIntro() {
   const overlay = document.getElementById("intro-overlay");
   try {
-    if (!localStorage.getItem(INTRO_KEY)) overlay.style.display = "flex";
+    if (!localStorage.getItem(INTRO_KEY)) {
+      overlay.style.display = "flex";
+      setTimeout(() => document.getElementById("intro-cta").focus(), 50);
+    }
   } catch (e) {
     overlay.style.display = "flex";
+    setTimeout(() => document.getElementById("intro-cta").focus(), 50);
   }
 }
 
@@ -771,6 +807,7 @@ function openExposureHelp() {
   const overlay = document.getElementById("exposure-help-overlay");
   if (overlay) {
     overlay.style.display = "flex";
+    setTimeout(() => document.getElementById("exposure-help-close").focus(), 50);
   }
 }
 
@@ -781,9 +818,47 @@ function closeExposureHelp() {
   }
 }
 
+// ─── Theme (light / dark) ────────────────────────────────────────────────────
+function applyTheme(theme) {
+  const body = document.body;
+  const btn  = document.getElementById("theme-toggle");
+
+  if (theme === "dark") {
+  body.classList.add("dark-theme");
+  if (btn) btn.classList.add("is-dark");
+  } else {
+  body.classList.remove("dark-theme");
+  if (btn) btn.classList.remove("is-dark");
+  }
+  
+  try {
+    localStorage.setItem(THEME_KEY, theme);
+  } catch (e) {}
+}
+
+function loadTheme() {
+  let theme = "light";
+  try {
+    const stored = localStorage.getItem(THEME_KEY);
+    if (stored === "light" || stored === "dark") {
+      theme = stored;
+    } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      theme = "dark";
+    }
+  } catch (e) {}
+
+  applyTheme(theme);
+}
+
+function toggleTheme() {
+  const isDark = document.body.classList.contains("dark-theme");
+  applyTheme(isDark ? "light" : "dark");
+}
+
 // ─── Event listeners ──────────────────────────────────────────────────────────
 document.getElementById("pct-input").addEventListener("keydown",  e => { if (e.key === "Enter") addAssessment(); });
 document.getElementById("note-input").addEventListener("keydown", e => { if (e.key === "Enter") addAssessment(); });
 
 // ─── Boot ─────────────────────────────────────────────────────────────────────
 loadAll();
+loadTheme();

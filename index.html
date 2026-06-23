@@ -26,6 +26,7 @@
       color: #1b1918;
       min-height: 100vh;
       padding: 0 0 48px;
+      transition: background 0.2s, color 0.2s;
     }
 
     .hidden {
@@ -154,6 +155,31 @@
       color: #fff;
     }
 
+    .theme-toggle {
+      padding: 6px 11px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 3px;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      cursor: pointer;
+      letter-spacing: 0.05em;
+      font-family: "Source Sans 3", "Source Sans Pro", Arial, sans-serif;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+      white-space: nowrap;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.22);
+    }
+
+    .theme-toggle.is-dark {
+      background: #ffffff;
+      color: #bc0031;
+      border-color: #ffffff;
+    }
+
     .main {
       max-width: 760px;
       margin: 28px auto 0;
@@ -169,6 +195,7 @@
       padding: 22px 24px;
       box-shadow: 0 1px 3px rgba(27, 25, 24, 0.1);
       border-top: 3px solid #bc0031;
+      transition: background 0.2s;
     }
 
     .card h2 {
@@ -291,7 +318,7 @@
 
     .add-row-labels span {
       font-size: 0.75rem;
-      color: #888;
+      color: #6b6966;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -389,7 +416,7 @@
     }
 
     .item-note-input::placeholder {
-      color: #b0aba8;
+      color: #767270;
     }
 
     .item-badge {
@@ -731,6 +758,7 @@
       justify-content: space-between;
       gap: 16px;
       flex-wrap: wrap;
+      transition: background 0.2s;
     }
 
     .consult-card p {
@@ -836,6 +864,150 @@
       background: #e5e7eb;
       color: #6b7280;
 }
+
+    /* ─── Dark theme overrides ─────────────────────────────────────────────── */
+
+    body.dark-theme {
+      background: #020617; /* near-black */
+      color: #e5e7eb;
+    }
+
+    body.dark-theme .card,
+    body.dark-theme .consult-card,
+    body.dark-theme .intro-box {
+      background: #162032;
+      color: #e5e7eb;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
+    }
+
+    body.dark-theme .course-title-input,
+    body.dark-theme .add-row select,
+    body.dark-theme .add-row input,
+    body.dark-theme .item-pct-input,
+    body.dark-theme .item-note-input {
+      background: #162032;
+      border-color: #4b5563;
+      color: #e5e7eb;
+    }
+
+    body.dark-theme .add-row button {
+      background: #bc0031;
+    }
+
+    body.dark-theme .add-row button:hover {
+      background: #840022;
+    }
+
+    body.dark-theme .empty-state,
+    body.dark-theme .no-assessments-note {
+      color: #9ca3af;
+    }
+
+    /* Assessment items */
+    body.dark-theme .assessment-item {
+      background: #162032;
+      border-left-color: #4b5563;
+    }
+
+    body.dark-theme .assessment-item.high {
+      border-left-color: #fca5a5;
+      background: #3b0820;
+    }
+
+    body.dark-theme .assessment-item.medium {
+      border-left-color: #fed7aa;
+      background: #3b2308;
+    }
+
+    body.dark-theme .assessment-item.low {
+      border-left-color: #bbf7d0;
+      background: #052e16;
+    }
+
+    /* Messages */
+    body.dark-theme .msg-warn {
+      background: #3b2308;
+      border-left-color: #fbbf24;
+    }
+
+    body.dark-theme .msg-danger {
+      background: #3b0820;
+      border-left-color: #fca5a5;
+    }
+
+    body.dark-theme .msg-success {
+      background: #052e16;
+      border-left-color: #22c55e;
+    }
+
+    body.dark-theme .msg-info {
+      background: #0b1120;
+      border-left-color: #38bdf8;
+    }
+
+    /* Toggle notes */
+    body.dark-theme .toggle-note.note-info {
+      background: #020617;
+      color: #e5e7eb;
+      border-left-color: #6b7280;
+    }
+
+    body.dark-theme .toggle-note.note-success {
+      background: #052e16;
+      color: #bbf7d0;
+      border-left-color: #22c55e;
+    }
+
+    body.dark-theme .toggle-note.note-warn {
+      background: #3b2308;
+      color: #fed7aa;
+      border-left-color: #f97316;
+    }
+
+    /* Breakdown bar background */
+    body.dark-theme .breakdown-bar {
+      background: #1f2937;
+    }
+
+    /* Intro overlays already have dark backdrop; just tweak box text color */
+    body.dark-theme .intro-box p {
+      color: #e5e7eb;
+    }
+
+    body.dark-theme .avv-label {
+      background: #374151;
+      color: #d1d5db;
+    }
+    /* Text */
+    body.dark-theme .card h2,
+    body.dark-theme .item-name,
+    body.dark-theme .total-label,
+    body.dark-theme .total-value,
+    body.dark-theme .score-desc .verdict,
+    body.dark-theme .consult-card p,
+    body.dark-theme .intro-box h2 {
+      color: #f1f5f9;
+    }
+
+    body.dark-theme .item-note-input {
+      background: transparent;
+      color: #e5e7eb;
+      border-bottom-color: #6b7280;
+    }
+    body.dark-theme .score-desc p,
+    body.dark-theme .exposure-item p,
+    body.dark-theme .toggle-label,
+    body.dark-theme .breakdown-legend,
+    body.dark-theme .add-row-labels span,
+    body.dark-theme .msg {
+      color: #cbd5e1;
+  }
+
+  body.dark-theme .item-note-input::placeholder {
+    color: #64748b;
+  }
+
+
     @media (max-width: 600px) {
       .header-bar {
         padding: 12px 16px;
@@ -939,7 +1111,7 @@
 
   <!-- Intro overlay -->
   <div id="intro-overlay" class="intro-overlay">
-    <div class="intro-box">
+    <div class="intro-box" role="dialog" aria-modal="true" aria-labelledby="intro-title">
       <h2 id="intro-title"></h2>
       <p id="intro-body"></p>
       <button type="button" class="intro-btn" onclick="dismissIntro()" id="intro-cta"></button>
@@ -967,6 +1139,11 @@
     <div class="header-right">
       <button type="button" id="header-reset-btn" class="header-reset-btn hidden" onclick="resetState()"></button>
       <button type="button" id="header-save-btn"  class="header-save-btn hidden"  onclick="saveResult()"></button>
+
+      <button type="button" id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+        &#x25D1;
+      </button>
+
       <div class="lang-switcher">
         <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
         <button class="lang-btn" id="lang-nl" onclick="setLang('nl')">NL</button>
@@ -1003,7 +1180,7 @@
     <!-- Assessment structure -->
     <div class="card hidden" id="structure-card">
       <h2 id="label-structure"></h2>
-      <div id="assessment-list"></div>
+      <div id="assessment-list" aria-live="polite" aria-atomic="false"></div>
     </div>
 
     <!-- Feedback -->
@@ -1020,7 +1197,7 @@
         ?
       </button>
     </div>
-    <div id="feedback-content"></div>
+    <div id="feedback-content" aria-live="polite"></div>
   </div>
 
     <!-- Consult CTA -->
