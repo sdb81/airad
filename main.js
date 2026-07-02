@@ -101,6 +101,12 @@ function setLang(l) {
 
   document.getElementById("lang-en").classList.toggle("active", l === "en");
   document.getElementById("lang-nl").classList.toggle("active", l === "nl");
+  
+  // Update intro switcher active state
+  document.querySelectorAll(".intro-box .lang-btn").forEach(btn => {
+    btn.classList.toggle("active", btn.textContent === l.toUpperCase());
+  });
+  
   document.documentElement.lang = l;
 
   applyStaticTranslations();

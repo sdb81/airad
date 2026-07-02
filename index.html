@@ -933,7 +933,7 @@
       background: #ffffff;
       border-radius: 12px;
       border: 1px solid #bc0031;
-      padding: 28px 12px 22px 28px;
+      padding: 28px 22px 22px 28px;
       box-shadow: 0 4px 24px rgba(255, 0, 0, 0.12);
     }
 
@@ -958,6 +958,28 @@
       flex-direction: column;
       overflow-y: auto;
       scrollbar-gutter: stable;
+    }
+
+    .intro-box .lang-switcher {
+      border: 2px solid rgba(0, 0, 0, 0.4);
+    }
+
+    .intro-box .lang-btn {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    .intro-box .lang-btn:first-child {
+      border-right: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .intro-box .lang-btn.active {
+      background: rgba(0, 0, 0, 0.15);
+      color: rgba(0, 0, 0, 0.9);
+    }
+
+    .intro-box .lang-btn:hover:not(.active) {
+      background: rgba(0, 0, 0, 0.05);
+      color: rgba(0, 0, 0, 0.7);
     }
 
     #exposure-help-body {
@@ -989,6 +1011,28 @@
 
     .intro-btn:hover {
       background: #840022;
+    }
+
+    .intro-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 9px;
+    }
+
+    .intro-footer .lang-toggle {
+      background-color: #0066cc;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .intro-footer .lang-toggle:hover {
+      background-color: #0052a3;
     }
 
     /* ──────────────────────────────────────────────────────────────────────────
@@ -1180,6 +1224,50 @@
       color: #64748b;
     }
 
+    .intro-box .lang-switcher {
+      border: 2px solid rgba(0, 0, 0, 0.4);
+    }
+
+    .intro-box .lang-btn {
+      color: rgba(0, 0, 0, 0.5);
+    }
+
+    .intro-box .lang-btn:first-child {
+      border-right: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .intro-box .lang-btn.active {
+      background: rgba(0, 0, 0, 0.15);
+      color: rgba(0, 0, 0, 0.9);
+    }
+
+    .intro-box .lang-btn:hover:not(.active) {
+      background: rgba(0, 0, 0, 0.05);
+      color: rgba(0, 0, 0, 0.7);
+    }
+
+    body.dark-theme .intro-box .lang-switcher {
+      border: 2px solid rgba(255, 255, 255, 0.4);
+    }
+
+    body.dark-theme .intro-box .lang-btn {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    body.dark-theme .intro-box .lang-btn:first-child {
+      border-right: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    body.dark-theme .intro-box .lang-btn.active {
+      background: rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    body.dark-theme .intro-box .lang-btn:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.08);
+      color: rgba(255, 255, 255, 0.7);
+}
+
     /* ──────────────────────────────────────────────────────────────────────────
        RESPONSIVE
        ────────────────────────────────────────────────────────────────────────── */
@@ -1299,7 +1387,13 @@
     <div class="intro-box" role="dialog" aria-modal="true" aria-labelledby="intro-title">
       <h2 id="intro-title"></h2>
       <p id="intro-body"></p>
-      <button type="button" class="intro-btn" onclick="dismissIntro()" id="intro-cta"></button>
+      <div class="intro-footer">
+        <button type="button" class="intro-btn" onclick="dismissIntro()" id="intro-cta"></button>
+        <div class="lang-switcher">
+          <button class="lang-btn active" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" onclick="setLang('nl')">NL</button>
+        </div>
+      </div>
     </div>
   </div>
 
