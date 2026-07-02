@@ -125,6 +125,25 @@
       "en": "mailto:tlc-fgw@uva.nl?subject=AI%20Exposure%20Scan%20Consultation",
       "nl": "mailto:tlc-fgw@uva.nl?subject=AI%20Gevoeligheidsscan%20Consult"
       }
+    },
+    "ACTA": {
+      "assessments": [
+        "group-work",
+        "in-class-activity",
+        "in-person-exam",
+        "in-person-mc-laptop",
+        "oral-exam",
+        "participation",
+        "peer-review",
+        "presentation",
+        "take-home-exam",
+        "take-home-mc",
+        "take-home-writing"
+      ],
+     "consultLink": {
+      "en": "mailto:assessmentexpert-eb@uva.nl?subject=AI%20Exposure%20Scan%20Consultation",
+      "nl": "mailto:assessmentexpert-eb@uva.nl?subject=AI%20Gevoeligheidsscan%20Consult"
+      }
     }
   }
 }
