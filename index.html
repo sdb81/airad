@@ -266,7 +266,6 @@
        ────────────────────────────────────────────────────────────────────────── */
 
     .course-title-input {
-      width: 100%;
       padding: 9px 12px;
       border: 1px solid #d7d6d4;
       border-radius: 8px;
@@ -281,7 +280,47 @@
       outline: 2px solid #bc0031;
       outline-offset: 1px;
     }
+    
+    .course-title-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
 
+    .course-title-input {
+      flex: 1;          /* takes all remaining space */
+      min-width: 0;     /* prevents flex overflow */
+    }
+
+    .faculty-select {
+      flex: 0 0 90px;   /* fixed width, won't grow/shrink */
+      padding: 9px 10px;
+      border: 1px solid #d7d6d4;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      background: #faf9f8;
+      color: #1b1918;
+      font-family: "Source Sans 3", "Source Sans Pro", Arial, sans-serif;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .faculty-select:focus {
+      outline: 2px solid #bc0031;
+      outline-offset: 1px;
+    }
+
+   .faculty-select:required:invalid {
+      color: #a8a29f;
+    }
+
+    .faculty-select option {
+      color: #1b1918;
+    }
+
+    body.dark-theme .faculty-select option {
+      color: #e5e7eb;
+    }
     /* ──────────────────────────────────────────────────────────────────────────
        ADD ASSESSMENT CARD
        ────────────────────────────────────────────────────────────────────────── */
@@ -871,6 +910,9 @@
       border-radius: 8px;
     }
 
+    .consult-btn[data-no-faculty="true"] {
+      opacity: 0.4;
+    }
     /* ──────────────────────────────────────────────────────────────────────────
        MODALS & OVERLAYS
        ────────────────────────────────────────────────────────────────────────── */
@@ -991,6 +1033,7 @@
     }
 
     body.dark-theme .course-title-input,
+    body.dark-theme .faculty-select,
     body.dark-theme .add-row select,
     body.dark-theme .add-row input,
     body.dark-theme .item-pct-input,
@@ -1013,6 +1056,10 @@
     body.dark-theme .no-assessments-note {
       color: #9ca3af;
     }
+
+      body.dark-theme .faculty-select:required:invalid {
+        color: #6b7280;
+      }
 
     /* Assessment items - dark */
     body.dark-theme .assessment-item {
@@ -1300,11 +1347,22 @@
 
   <div class="main">
 
-    <!-- Course title card -->
-    <div class="card">
-      <h2 id="label-course-title"></h2>
+  <!-- Course title card -->
+  <div class="card">
+    <h2 id="label-course-title"></h2>
+    <div class="course-title-row">
       <input type="text" class="course-title-input" id="course-title" oninput="updateCourseTitle()" />
+      <select id="faculty-select" class="faculty-select" onchange="updateFaculty()" required>
+        <option value="" id="faculty-placeholder" disabled hidden selected style="display:none"></option>
+        <option value="FdG">FdG</option>
+        <option value="FdR">FdR</option>
+        <option value="FEB">FEB</option>
+        <option value="FGw">FGw</option>
+        <option value="FMG">FMG</option>
+        <option value="FNWI">FNWI</option>
+      </select>
     </div>
+  </div>
 
     <!-- Add assessment card -->
     <div class="card hidden" id="add-card">
@@ -1352,7 +1410,7 @@
       <a
         class="consult-btn"
         id="consult-btn"
-        href="https://amsuni.sharepoint.com/:l:/s/FMG_PRJ_TLC_TLC_FMG_core_team/FBa7kq-wc2BIqGlo8OIn84MBvjf1ydn8g781E0O-XWAR_A?nav=NjVhMTY5ZmItN2U5Yy00OTBmLTg1MDUtMTY5ZmEzY2IxNDgx"
+        href="#"
         target="_blank"
         rel="noopener"
       ></a>

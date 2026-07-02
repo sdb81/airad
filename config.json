@@ -12,6 +12,119 @@
   },
   "highRiskMessageThresholds": {
     "highOver60": 60,
-    "highOver40": 40 
+    "highOver40": 40
+  },
+  "faculties": {
+    "FMG": {
+      "assessments": [
+        "group-work",
+        "in-class-activity",
+        "in-person-exam",
+        "in-person-mc-laptop",
+        "oral-exam",
+        "participation",
+        "peer-review",
+        "presentation",
+        "take-home-exam",
+        "take-home-mc",
+        "take-home-writing"
+      ],
+      "consultLink": "https://amsuni.sharepoint.com/:l:/s/FMG_PRJ_TLC_TLC_FMG_core_team/FBa7kq-wc2BIqGlo8OIn84MBvjf1ydn8g781E0O-XWAR_A?nav=NjVhMTY5ZmItN2U5Yy00OTBmLTg1MDUtMTY5ZmEzY2IxNDgx"
+    },
+    "FEB": {
+      "assessments": [
+        "group-work",
+        "in-class-activity",
+        "in-person-exam",
+        "in-person-mc-laptop",
+        "oral-exam",
+        "participation",
+        "peer-review",
+        "presentation",
+        "take-home-exam",
+        "take-home-mc",
+        "take-home-writing"
+      ],
+     "consultLink": {
+      "en": "mailto:assessmentexpert-eb@uva.nl?subject=AI%20Exposure%20Scan%20Consultation",
+      "nl": "mailto:assessmentexpert-eb@uva.nl?subject=AI%20Gevoeligheidsscan%20Consult"
+      }
+    },
+    "FdR": {
+      "assessments": [
+        "group-work",
+        "in-class-activity",
+        "in-person-exam",
+        "in-person-mc-laptop",
+        "oral-exam",
+        "participation",
+        "peer-review",
+        "presentation",
+        "take-home-exam",
+        "take-home-mc",
+        "take-home-writing"
+      ],
+      "consultLink": {
+      "en": "mailto:tlc-fdr@uva.nl?subject=AI%20Exposure%20Scan%20Consultation",
+      "nl": "mailto:tlc-fdr@uva.nl?subject=AI%20Gevoeligheidsscan%20Consult"
+      }
+    },
+    "FdG": {
+      "assessments": [
+        "group-work",
+        "in-class-activity",
+        "in-person-exam",
+        "in-person-mc-laptop",
+        "oral-exam",
+        "participation",
+        "peer-review",
+        "presentation",
+        "take-home-exam",
+        "take-home-mc",
+        "take-home-writing"
+      ],
+      "consultLink": {
+      "en": "mailto:tlc@amsterdamumc.nl?subject=AI%20Exposure%20Scan%20Consultation",
+      "nl": "mailto:tlc@amsterdamumc.nl?subject=AI%20Gevoeligheidsscan%20Consult"
+      }
+    },
+    "FNWI": {
+      "assessments": [
+        "group-work",
+        "in-class-activity",
+        "in-person-exam",
+        "in-person-mc-laptop",
+        "oral-exam",
+        "participation",
+        "peer-review",
+        "presentation",
+        "take-home-exam",
+        "take-home-mc",
+        "take-home-writing"
+      ],
+      "consultLink": {
+      "en": "mailto:ai-tlc-science@uva.nl?subject=AI%20Exposure%20Scan%20Consultation",
+      "nl": "mailto:ai-tlc-science@uva.nl?subject=AI%20Gevoeligheidsscan%20Consult"
+      }
+    },
+    "FGw": {
+      "assessments": [
+        "group-work",
+        "in-class-activity",
+        "in-person-exam",
+        "in-person-mc-laptop",
+        "oral-exam",
+        "participation",
+        "peer-review",
+        "presentation",
+        "take-home-exam",
+        "take-home-mc",
+        "take-home-writing"
+      ],
+      "consultLink": {
+      "en": "mailto:tlc-fgw@uva.nl?subject=AI%20Exposure%20Scan%20Consultation",
+      "nl": "mailto:tlc-fgw@uva.nl?subject=AI%20Gevoeligheidsscan%20Consult"
+      }
+    }
   }
 }

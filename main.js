@@ -19,6 +19,7 @@ let HAS_INCLASS   = [];
 let HAS_QA = [];
 let HAS_REFLECTION = [];
 let HAS_ORAL = [];
+let selectedFaculty = "";
 
 let assessments = [];
 let assessmentSectionsVisible = false;
@@ -130,36 +131,32 @@ function applyStaticTranslations() {
   document.getElementById("intro-title").textContent         = tx.introTitle;
   document.getElementById("intro-body").textContent          = tx.introBody;
   document.getElementById("intro-cta").textContent           = tx.introCta;
+  document.getElementById("faculty-placeholder").textContent = tx.facultyPlaceholder;
 
   const helpCloseBtn = document.getElementById("exposure-help-close");
   if (helpCloseBtn) {
     helpCloseBtn.textContent = tx.close || "Close";
   }
 
-  const selectEl = document.getElementById("assessment-select");
-  const previous = selectEl.value;
-
   const helpTitleEl = document.getElementById("exposure-help-title");
   if (helpTitleEl) {
     helpTitleEl.textContent = tx.helpExposureTitle || "How are exposure scores decided?";
   }
 
+  const facultyEl = document.getElementById("faculty-select");
+
   // Build the grouped help content with badges
   renderExposureHelpContent();
 
-  selectEl.innerHTML = [...ASSESSMENT_IDS]
-    .sort((a, b) => (tx.labels[a] || a).localeCompare(tx.labels[b] || b))
-    .map(id => `<option value="${id}">${tx.labels[id] || id}</option>`)
-    .join("");
-
-  if (previous) selectEl.value = previous;
-}
+  applyFaculty(selectedFaculty);  // replaces the old selectEl.innerHTML block
+} 
 // ─── Persistence ──────────────────────────────────────────────────────────────
 function saveState() {
   try {
-    localStorage.setItem(VERSION_KEY, CONFIG.version);  // add this line
+    localStorage.setItem(VERSION_KEY, CONFIG.version);
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       courseTitle: document.getElementById("course-title").value || "",
+      faculty: selectedFaculty,
       assessments,
       assessmentSectionsVisible,
     }));
@@ -167,6 +164,7 @@ function saveState() {
 }
 
 function loadState() {
+  console.log("saved faculty:", localStorage.getItem(STORAGE_KEY));
   try {
     const savedVersion = parseInt(localStorage.getItem(VERSION_KEY) || "0", 10);
     if (savedVersion !== CONFIG.version) {
@@ -177,7 +175,11 @@ function loadState() {
     }
 
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) { render(); return; }
+    if (!raw) {
+      initConsultBtn();
+      render();
+      return;
+    }
 
     const state = JSON.parse(raw);
     if (state && typeof state === "object") {
@@ -189,6 +191,17 @@ function loadState() {
         }
       }
 
+      // Restore faculty
+      if (typeof state.faculty === "string" && state.faculty) {
+      console.log("restoring faculty:", state.faculty);
+      selectedFaculty = state.faculty;
+      document.getElementById("faculty-select").value = state.faculty;
+      applyFaculty(state.faculty);
+    } else {
+      console.log("no faculty found, calling initConsultBtn");
+      initConsultBtn();
+    }
+
       if (Array.isArray(state.assessments)) {
         assessments = state.assessments.map(a => ({
           compensable:  null,
@@ -197,7 +210,7 @@ function loadState() {
           qa:           null,
           reflection:   null,
           oral:         null,
-          ...a  // existing values overwrite the defaults
+          ...a
         }));
       }
 
@@ -223,12 +236,68 @@ function loadState() {
   }
 }
 
-// ─── Course title ─────────────────────────────────────────────────────────────
+function initConsultBtn() {
+  const consultBtn = document.getElementById("consult-btn");
+  if (consultBtn) {
+    consultBtn.href = "#";
+    consultBtn.setAttribute("data-no-faculty", "true");
+  }
+}
+
+// ─── Course Title & Faculty ─────────────────────────────────────────────────────────────
 function updateCourseTitle() {
   const value = document.getElementById("course-title").value.trim();
   document.getElementById("header-subtitle").textContent = value || "";
-  document.getElementById("add-card").classList.toggle("hidden", !value);
+  const facultySelected = !!selectedFaculty;
+  document.getElementById("add-card").classList.toggle("hidden", !value || !facultySelected);
   saveState();
+}
+
+function updateFaculty() {
+  const el = document.getElementById("faculty-select");
+  const faculty = el.value;
+  selectedFaculty = faculty;
+  applyFaculty(faculty);
+
+  const title = document.getElementById("course-title").value.trim();
+  document.getElementById("add-card").classList.toggle("hidden", !title || !faculty);
+
+  saveState();
+}
+
+function applyFaculty(faculty) {
+  const tx = TX[lang];
+  const selectEl = document.getElementById("assessment-select");
+  const consultBtn = document.getElementById("consult-btn");
+  const facultyConfig = CONFIG.faculties && CONFIG.faculties[faculty];
+
+  // Determine which assessment IDs to show
+  const allowedIds = facultyConfig
+    ? facultyConfig.assessments
+    : ASSESSMENT_IDS;
+
+  // Rebuild the assessment dropdown (sorted by translated label)
+  const previous = selectEl.value;
+  selectEl.innerHTML = [...allowedIds]
+    .sort((a, b) => (tx.labels[a] || a).localeCompare(tx.labels[b] || b))
+    .map(id => `<option value="${id}">${tx.labels[id] || id}</option>`)
+    .join("");
+
+  // Restore previous selection if still valid
+  if (allowedIds.includes(previous)) {
+    selectEl.value = previous;
+  }
+
+  if (facultyConfig && facultyConfig.consultLink) {
+    const link = typeof facultyConfig.consultLink === "object"
+      ? facultyConfig.consultLink[lang] || facultyConfig.consultLink["en"]
+      : facultyConfig.consultLink;
+    consultBtn.href = link;
+    consultBtn.removeAttribute("data-no-faculty");
+  } else {
+    consultBtn.href = "#";
+    consultBtn.setAttribute("data-no-faculty", "true");
+  }
 }
 
 // ─── Assessment CRUD ──────────────────────────────────────────────────────────
@@ -858,7 +927,12 @@ function toggleTheme() {
 // ─── Event listeners ──────────────────────────────────────────────────────────
 document.getElementById("pct-input").addEventListener("keydown",  e => { if (e.key === "Enter") addAssessment(); });
 document.getElementById("note-input").addEventListener("keydown", e => { if (e.key === "Enter") addAssessment(); });
-
+document.getElementById("consult-btn").addEventListener("click", function(e) {
+  if (this.getAttribute("data-no-faculty") === "true") {
+    e.preventDefault();
+    alert(TX[lang].selectFacultyFirst || "Please select a faculty first.");
+  }
+});
 // ─── Boot ─────────────────────────────────────────────────────────────────────
 loadAll();
 loadTheme();
