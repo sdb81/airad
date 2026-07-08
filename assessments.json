@@ -15,7 +15,7 @@
     "toggles": ["compensable"]
   },
   {
-    "id": "in-person-mc-laptop",
+    "id": "in-person-byod",
     "risk": "high",
     "toggles": []
   },

@@ -401,7 +401,7 @@ function renderExposureHelpContent() {
       "take-home-writing",
       "take-home-exam",
       "take-home-mc",
-      "in-person-mc-laptop",
+      "in-person-byod",
       "group-work"
     ],
     medium: [
