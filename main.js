@@ -473,6 +473,10 @@ function renderList() {
     const name = tx.labels[a.id] || a.id;
     let togglesHtml = "";
 
+    if (a.pct === 0) {
+      togglesHtml += `<div class="toggle-note note-avv">${tx.avvYes}</div>`;
+    }
+
     const toggleStyles = CONFIG.toggleStyles || {};
     const assessmentDef = ASSESSMENTS.find(x => x.id === a.id);
 
@@ -494,10 +498,6 @@ function renderList() {
         </div>
         ${noteHtml}`;
     });
-
-    if (a.pct === 0) {
-      togglesHtml += `<div class="toggle-note note-info">${tx.avvYes}</div>`;
-    }
 
     const safeNote = a.note.replace(/"/g, "&quot;");
     const risk = effRisk(a);
@@ -768,14 +768,69 @@ function saveResult() {
     return;
   }
 
-  html2canvas(document.body, {
+  const isDark = document.body.classList.contains("dark-theme");
+  const bgColor = isDark ? "#020617" : "#f5f4f2";
+
+  html2canvas(document.getElementById("capture-area"), {
     scale: 2,
     useCORS: true,
+    backgroundColor: bgColor,
     onclone: clonedDoc => {
-      const addCardClone = clonedDoc.getElementById("add-card");
-      if (addCardClone) {
-        addCardClone.classList.add("hidden");
+      const captureArea = clonedDoc.getElementById("capture-area");
+      if (captureArea) {
+        captureArea.style.paddingTop = "8px";
+        captureArea.style.paddingBottom = "16px";
+        captureArea.style.backgroundColor = bgColor;
       }
+
+      // Replace pct inputs with centered spans
+      clonedDoc.querySelectorAll(".item-pct-input").forEach(input => {
+        const span = clonedDoc.createElement("span");
+        span.textContent = input.value;
+        span.style.cssText = `
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 56px;
+          height: ${input.offsetHeight}px;
+          border: 1px solid ${isDark ? "#4b5563" : "#d7d6d4"};
+          border-radius: 8px;
+          font-size: 0.88rem;
+          font-family: Source Sans 3, Arial, sans-serif;
+          font-weight: 600;
+          background: ${isDark ? "#162032" : "#fff"};
+          color: ${isDark ? "#e5e7eb" : "inherit"};
+        `;
+        input.replaceWith(span);
+      });
+      
+      // Replace faculty select with centered span
+    clonedDoc.querySelectorAll(".faculty-select").forEach(select => {
+      const span = clonedDoc.createElement("span");
+      span.textContent = select.options[select.selectedIndex]?.text ?? "";
+      span.style.cssText = `
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: ${select.offsetWidth}px;
+        height: ${select.offsetHeight}px;
+        border: 1px solid ${isDark ? "#4b5563" : "#d7d6d4"};
+        border-radius: 8px;
+        font-size: 0.88rem;
+        font-family: Source Sans 3, Arial, sans-serif;
+        background: ${isDark ? "#162032" : "#fff"};
+        color: ${isDark ? "#e5e7eb" : "inherit"};
+      `;
+      select.replaceWith(span);
+    });
+
+      const header = clonedDoc.querySelector(".header-bar");
+      if (header) {
+        header.style.position = "relative";
+        header.style.top = "auto";
+      }
+      const addCard = clonedDoc.getElementById("add-card");
+      if (addCard) addCard.classList.add("hidden");
     }
   }).then(canvas => {
     const link = document.createElement("a");
