@@ -16,12 +16,13 @@
   },
 
   "toggleStyles": {
-    "compensable": { "yes": "note-warn",    "no": "note-success" },
+    "compensable": { "yes": "note-info",    "no": "note-success" },
     "intermediate": { "yes": "note-info",   "no": "note-warn"    },
     "oral":         { "yes": "note-info",   "no": "note-warn"    },
     "inclass":      { "yes": "note-success","no": "note-warn"    },
     "qa":           { "yes": "note-success","no": "note-warn"    },
-    "reflection":   { "yes": "note-info",   "no": "note-warn"    }
+    "reflection":   { "yes": "note-info",   "no": "note-warn"    },
+    "full_overview":  { "yes": "note-info","no": "note-warn", "null": "note-warn"   }
   },
 
   "faculties": {

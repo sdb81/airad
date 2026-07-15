@@ -456,6 +456,19 @@ function renderList() {
     return;
   }
 
+  const effRisk = a => {
+    const found = ASSESSMENTS.find(x => x.id === a.id);
+    if (found?.riskOverrides) {
+      for (const [key, risk] of Object.entries(found.riskOverrides)) {
+        const lastUnderscore = key.lastIndexOf("_");
+        const toggle = key.substring(0, lastUnderscore);
+        const val = key.substring(lastUnderscore + 1);
+        if (a[toggle] === val) return risk;
+      }
+    }
+    return a.risk;
+  };
+
   listEl.innerHTML = assessments.map((a, i) => {
     const name = tx.labels[a.id] || a.id;
     let togglesHtml = "";
@@ -485,11 +498,13 @@ function renderList() {
     if (a.pct === 0) {
       togglesHtml += `<div class="toggle-note note-info">${tx.avvYes}</div>`;
     }
-      const safeNote    = a.note.replace(/"/g, "&quot;");
-    const riskLabelKey = "risk" + a.risk.charAt(0).toUpperCase() + a.risk.slice(1);
+
+    const safeNote = a.note.replace(/"/g, "&quot;");
+    const risk = effRisk(a);
+    const riskLabelKey = "risk" + risk.charAt(0).toUpperCase() + risk.slice(1);
 
     return `
-      <div class="assessment-item ${a.risk}">
+      <div class="assessment-item ${risk}">
         <div class="item-main-row">
           <div class="item-labels">
             <span class="item-name">${name}</span>
@@ -503,7 +518,7 @@ function renderList() {
             />
           </div>
           ${a.pct === 0 ? `<span class="avv-label">AVV</span>` : ""}
-          <span class="item-badge badge-${a.risk}">${tx[riskLabelKey]}</span>
+          <span class="item-badge badge-${risk}">${tx[riskLabelKey]}</span>
           <input
             class="item-pct-input"
             type="number"
@@ -543,17 +558,41 @@ function renderFeedback() {
   const medPct  = assessments.filter(a => a.risk === "medium").reduce((s, a) => s + a.pct, 0);
   const lowPct  = assessments.filter(a => a.risk === "low").reduce((s, a) => s + a.pct, 0);
 
+  const effRisk = a => {
+    const found = ASSESSMENTS.find(x => x.id === a.id);
+    if (found?.riskOverrides) {
+      for (const [key, risk] of Object.entries(found.riskOverrides)) {
+        const lastUnderscore = key.lastIndexOf("_");
+        const toggle = key.substring(0, lastUnderscore);
+        const val = key.substring(lastUnderscore + 1);
+        if (a[toggle] === val) return risk;
+      }
+    }
+    return a.risk;
+  };
+
   const effScore = a => {
     const found = ASSESSMENTS.find(x => x.id === a.id);
+    
+    // Check riskOverrides first
+    const risk = effRisk(a);
+    if (risk !== a.risk) {
+      return RISK_SCORE[risk];
+    }
+    
+    // Then check scoreOverrides
     if (found?.scoreOverrides) {
       for (const [key, score] of Object.entries(found.scoreOverrides)) {
-        const [toggle, val] = key.split("_");
+        const lastUnderscore = key.lastIndexOf("_");
+        const toggle = key.substring(0, lastUnderscore);
+        const val = key.substring(lastUnderscore + 1);
         if (a[toggle] === val) return score;
       }
     }
+    
     return RISK_SCORE[a.risk];
   };
-  
+
   const weighted = assessments.reduce((sum, a) => sum + effScore(a) * a.pct, 0);
 
   let vulnerability =
@@ -627,32 +666,33 @@ function renderFeedback() {
     messages.push({ type: "warn", icon: "⚠️", text: tx.msgNoLow });
   }
 
+  // Generic null toggle messages (driven by assessments.json nullMessages)
+  const seenKeys = new Set();
+  ASSESSMENTS.forEach(def => {
+    if (!def.nullMessages) return;
+    const instance = assessments.find(a => a.id === def.id);
+    if (!instance) return;
+    for (const [toggle, msgKey] of Object.entries(def.nullMessages)) {
+      if (instance[toggle] === null && !seenKeys.has(msgKey)) {
+        seenKeys.add(msgKey);
+        messages.push({ type: "warn", icon: "❓", text: tx[msgKey] });
+      }
+    }
+  });
+
+  // Group work (non-null positive message — only when all toggles are answered)
+  if (assessments.some(a => a.id === "group-work")) {
+    const gw = assessments.find(a => a.id === "group-work");
+    if (gw && gw.intermediate !== null && gw.reflection !== null && gw.oral !== null) {
+      messages.push({ type: "info", icon: "ℹ️", text: tx.msgGroupWork });
+    }
+  }
+
   // Compensable in-person exam
   if (assessments.some(a => a.id === "in-person-exam" && a.compensable === "yes")) {
     messages.push({ type: "info", icon: "ℹ️", text: tx.msgCompensableYes });
   }
-  if (assessments.some(a => a.id === "in-person-exam" && a.compensable === null)) {
-    messages.push({ type: "warn", icon: "❓", text: tx.msgCompensableNull });
-  }
- // Oral component in take-home writing
-  if (assessments.some(a => a.id === "take-home-writing" && a.oral === null)) {
-    messages.push({ type: "warn", icon: "❓", text: tx.msgTakeHomeNull });
-  }
-
-  // Group work
-  if (assessments.some(a => a.id === "group-work")) {
-    if (assessments.some(a => a.id === "group-work" && (a.intermediate === null || a.reflection === null || a.oral === null))) {
-      messages.push({ type: "warn", icon: "❓", text: tx.msgGroupWorkNull });
-    } else {
-      messages.push({ type: "info", icon: "ℹ️", text: tx.msgGroupWork });
-}
-}
-
-  // Peer review without inclass answer
-  if (assessments.some(a => a.id === "peer-review" && a.inclass === null)) {
-    messages.push({ type: "warn", icon: "❓", text: tx.msgPeerReviewNull });
-  }
-
+ 
   // Presentation
   if (assessments.some(a => a.id === "presentation" && a.qa === null)) {
   messages.push({ type: "info", icon: "ℹ️", text: tx.msgPresentation });

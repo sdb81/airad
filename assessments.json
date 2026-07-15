@@ -3,7 +3,12 @@
     "id": "group-work",
     "risk": "high",
     "toggles": ["intermediate", "reflection", "oral"],
-    "scoreOverrides": { "oral_yes": 2.5 }
+    "scoreOverrides": { "oral_yes": 2.5 },
+    "nullMessages": {
+      "intermediate": "msgGroupWorkNull",
+      "reflection":   "msgGroupWorkNull",
+      "oral":         "msgGroupWorkNull"
+    }
   },
   {
     "id": "in-class-activity",
@@ -13,13 +18,17 @@
   {
     "id": "in-person-exam",
     "risk": "low",
-    "toggles": ["compensable"]
+    "toggles": ["compensable"],
+    "nullMessages": { "compensable": "msgCompensableNull" }
   },
   {
     "id": "in-person-byod",
     "risk": "high",
-    "toggles": []
-  },
+    "toggles": ["full_overview"],
+    "scoreOverrides": { "full_overview_yes": 1.5 },
+    "riskOverrides": { "full_overview_yes": "medium" },
+    "nullMessages": { "full_overview": "full_overviewNull" }
+    },
   {
     "id": "oral-exam",
     "risk": "low",
@@ -34,7 +43,9 @@
     "id": "peer-review",
     "risk": "medium",
     "toggles": ["inclass"],
-    "scoreOverrides": { "inclass_yes": 1 }
+    "scoreOverrides": { "inclass_yes": 1 },
+    "riskOverrides": { "inclass_yes": "low" },
+    "nullMessages": { "inclass": "msgPeerReviewNull" }
   },
   {
     "id": "presentation",
@@ -56,6 +67,7 @@
     "id": "take-home-writing",
     "risk": "high",
     "toggles": ["intermediate", "oral"],
-    "scoreOverrides": { "oral_yes": 2.5 }
+    "scoreOverrides": { "oral_yes": 2.5 },
+    "nullMessages": { "intermediate": "msgTakeHomeNull", "oral": "msgTakeHomeNull" }
   }
 ]
