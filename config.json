@@ -14,6 +14,16 @@
     "highOver60": 60,
     "highOver40": 40
   },
+
+  "toggleStyles": {
+    "compensable": { "yes": "note-warn",    "no": "note-success" },
+    "intermediate": { "yes": "note-info",   "no": "note-warn"    },
+    "oral":         { "yes": "note-info",   "no": "note-warn"    },
+    "inclass":      { "yes": "note-success","no": "note-warn"    },
+    "qa":           { "yes": "note-success","no": "note-warn"    },
+    "reflection":   { "yes": "note-info",   "no": "note-warn"    }
+  },
+
   "faculties": {
     "FMG": {
       "assessments": [
@@ -141,8 +151,8 @@
         "take-home-writing"
       ],
      "consultLink": {
-      "en": "mailto:assessmentexpert-eb@uva.nl?subject=AI%20Exposure%20Scan%20Consultation",
-      "nl": "mailto:assessmentexpert-eb@uva.nl?subject=AI%20Gevoeligheidsscan%20Consult"
+      "en": "mailto:ai-tlc@uva.nl?subject=AI%20Exposure%20Scan%20Consultation",
+      "nl": "mailto:ai-tlc@uva.nl?subject=AI%20Gevoeligheidsscan%20Consult"
       }
     }
   }

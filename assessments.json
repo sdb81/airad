@@ -2,7 +2,8 @@
   {
     "id": "group-work",
     "risk": "high",
-    "toggles": ["intermediate", "reflection", "oral"]
+    "toggles": ["intermediate", "reflection", "oral"],
+    "scoreOverrides": { "oral_yes": 2.5 }
   },
   {
     "id": "in-class-activity",
@@ -32,12 +33,14 @@
   {
     "id": "peer-review",
     "risk": "medium",
-    "toggles": ["inclass"]
+    "toggles": ["inclass"],
+    "scoreOverrides": { "inclass_yes": 1 }
   },
   {
     "id": "presentation",
     "risk": "medium",
-    "toggles": ["qa"]
+    "toggles": ["qa"],
+    "scoreOverrides": { "qa_yes": 1.25 }
   },
   {
     "id": "take-home-exam",
@@ -52,6 +55,7 @@
   {
     "id": "take-home-writing",
     "risk": "high",
-    "toggles": ["intermediate", "oral"]
+    "toggles": ["intermediate", "oral"],
+    "scoreOverrides": { "oral_yes": 2.5 }
   }
 ]

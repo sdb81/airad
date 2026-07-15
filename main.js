@@ -13,12 +13,7 @@ let CONFIG    = {};
 // Derived lookup maps (built after ASSESSMENTS loads)
 let RISK          = {};
 let ASSESSMENT_IDS = [];
-let HAS_COMPENSABLE = [];
-let HAS_INTERMEDIATE = [];
-let HAS_INCLASS   = [];
-let HAS_QA = [];
-let HAS_REFLECTION = [];
-let HAS_ORAL = [];
+
 let selectedFaculty = "";
 
 let assessments = [];
@@ -63,27 +58,22 @@ async function loadAll() {
   // Build derived maps from assessments.json
   RISK = {};
   ASSESSMENT_IDS = [];
-  HAS_COMPENSABLE = [];
-  HAS_INTERMEDIATE = [];
-  HAS_INCLASS = [];
-  HAS_ORAL = [];
+  TOGGLE_MAP = {};
   ASSESSMENTS.forEach(a => {
     RISK[a.id] = a.risk;
     ASSESSMENT_IDS.push(a.id);
-    if (a.toggles.includes("compensable"))  HAS_COMPENSABLE.push(a.id);
-    if (a.toggles.includes("intermediate")) HAS_INTERMEDIATE.push(a.id);
-    if (a.toggles.includes("inclass"))      HAS_INCLASS.push(a.id);
-    if (a.toggles.includes("qa"))           HAS_QA.push(a.id);
-    if (a.toggles.includes("reflection"))   HAS_REFLECTION.push(a.id);
-    if (a.toggles.includes("oral"))         HAS_ORAL.push(a.id);
+    a.toggles.forEach(toggle => {
+      if (!TOGGLE_MAP[toggle]) TOGGLE_MAP[toggle] = [];
+      TOGGLE_MAP[toggle].push(a.id);
+    });
   });
 
-  // Boot
-  lang = detectLang();
-  setLang(lang);
-  loadState();
-  maybeShowIntro();
-}
+    // Boot
+    lang = detectLang();
+    setLang(lang);
+    loadState();
+    maybeShowIntro();
+  }
 
 // ─── Language ─────────────────────────────────────────────────────────────────
 function detectLang() {
@@ -209,15 +199,12 @@ function loadState() {
     }
 
       if (Array.isArray(state.assessments)) {
-        assessments = state.assessments.map(a => ({
-          compensable:  null,
-          intermediate: null,
-          inclass:      null,
-          qa:           null,
-          reflection:   null,
-          oral:         null,
-          ...a
-        }));
+        assessments = state.assessments.map(a => {
+          const def = {};
+          const found = ASSESSMENTS.find(x => x.id === a.id);
+          if (found) found.toggles.forEach(t => { def[t] = null; });
+          return { ...def, ...a };
+        });
       }
 
       assessmentSectionsVisible =
@@ -333,17 +320,16 @@ function addAssessment() {
     return;
   }
 
+  const toggleDefaults = {};
+  const assessment = ASSESSMENTS.find(a => a.id === id);
+  if (assessment) assessment.toggles.forEach(t => { toggleDefaults[t] = null; });
+
   assessments.push({
     id,
     risk: RISK[id],
     pct,
     note: noteInput.value.trim(),
-    compensable:  null,
-    intermediate: null,
-    inclass:      null,
-    qa:           null,
-    reflection:   null,
-    oral:         null
+    ...toggleDefaults
   });
 
   pctInput.value  = "";
@@ -474,116 +460,31 @@ function renderList() {
     const name = tx.labels[a.id] || a.id;
     let togglesHtml = "";
 
-    if (HAS_COMPENSABLE.includes(a.id)) {
-      const yesActive = a.compensable === "yes" ? "active-yes" : "";
-      const noActive  = a.compensable === "no"  ? "active-no"  : "";
+    const toggleStyles = CONFIG.toggleStyles || {};
+    const assessmentDef = ASSESSMENTS.find(x => x.id === a.id);
+
+    (assessmentDef?.toggles || []).forEach(toggle => {
+      const styles    = toggleStyles[toggle] || { yes: "note-info", no: "note-warn" };
+      const yesActive = a[toggle] === "yes" ? "active-yes" : "";
+      const noActive  = a[toggle] === "no"  ? "active-no"  : "";
       const noteHtml  =
-        a.compensable === "no"  ? `<div class="toggle-note note-success">${tx.compensableNo}</div>` :
-        a.compensable === "yes" ? `<div class="toggle-note note-warn">${tx.compensableYes}</div>` : "";
+        a[toggle] === "yes" ? `<div class="toggle-note ${styles.yes}">${tx[toggle + "Yes"]}</div>` :
+        a[toggle] === "no"  ? `<div class="toggle-note ${styles.no}">${tx[toggle + "No"]}</div>` : "";
 
       togglesHtml += `
         <div class="toggle-row">
-          <span class="toggle-label">${tx.compensable}</span>
+          <span class="toggle-label">${tx[toggle]}</span>
           <div class="toggle-btn-group">
-            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'compensable','yes')" aria-pressed="${a.compensable === 'yes'}">${tx.yes}</button>
-            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'compensable','no')"  aria-pressed="${a.compensable === 'no'}">${tx.no}</button>
+            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'${toggle}','yes')" aria-pressed="${a[toggle] === 'yes'}">${tx.yes}</button>
+            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'${toggle}','no')"  aria-pressed="${a[toggle] === 'no'}">${tx.no}</button>
           </div>
         </div>
         ${noteHtml}`;
-    }
+    });
 
-    if (HAS_INTERMEDIATE.includes(a.id)) {
-      const yesActive = a.intermediate === "yes" ? "active-yes" : "";
-      const noActive  = a.intermediate === "no"  ? "active-no"  : "";
-      const noteHtml  =
-        a.intermediate === "yes" ? `<div class="toggle-note note-info">${tx.intermediateYes}</div>` :
-        a.intermediate === "no"  ? `<div class="toggle-note note-warn">${tx.intermediateNo}</div>` : "";
-
-      togglesHtml += `
-        <div class="toggle-row">
-          <span class="toggle-label">${tx.intermediate}</span>
-          <div class="toggle-btn-group">
-            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'intermediate','yes')" aria-pressed="${a.intermediate === 'yes'}">${tx.yes}</button>
-            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'intermediate','no')"  aria-pressed="${a.intermediate === 'no'}">${tx.no}</button>
-          </div>
-        </div>
-        ${noteHtml}`;
-    }
-
-    if (HAS_ORAL.includes(a.id)) {
-      const yesActive = a.oral === "yes" ? "active-yes" : "";
-      const noActive  = a.oral === "no"  ? "active-no"  : "";
-      const noteHtml  =
-        a.oral === "yes" ? `<div class="toggle-note note-info">${tx.oralYes}</div>` :
-        a.oral === "no"  ? `<div class="toggle-note note-warn">${tx.oralNo}</div>` : "";
-
-      togglesHtml += `
-        <div class="toggle-row">
-          <span class="toggle-label">${tx.oral}</span>
-          <div class="toggle-btn-group">
-            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'oral','yes')" aria-pressed="${a.oral === 'yes'}">${tx.yes}</button>
-            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'oral','no')"  aria-pressed="${a.oral === 'no'}">${tx.no}</button>
-          </div>
-        </div>
-        ${noteHtml}`;
-    } 
-
-    if (HAS_INCLASS.includes(a.id)) {
-      const yesActive = a.inclass === "yes" ? "active-yes" : "";
-      const noActive  = a.inclass === "no"  ? "active-no"  : "";
-      const noteHtml  =
-        a.inclass === "yes" ? `<div class="toggle-note note-success">${tx.inclassYes}</div>` :
-        a.inclass === "no"  ? `<div class="toggle-note note-warn">${tx.inclassNo}</div>` : "";
-
-      togglesHtml += `
-        <div class="toggle-row">
-          <span class="toggle-label">${tx.inclass}</span>
-          <div class="toggle-btn-group">
-            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'inclass','yes')" aria-pressed="${a.inclass === 'yes'}">${tx.yes}</button>
-            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'inclass','no')"  aria-pressed="${a.inclass === 'no'}">${tx.no}</button>
-          </div>
-        </div>
-        ${noteHtml}`;
-      
-    }
-
-    if (HAS_QA.includes(a.id)) {
-      const yesActive = a.qa === "yes" ? "active-yes" : "";
-      const noActive  = a.qa === "no"  ? "active-no"  : "";
-      const noteHtml  =
-        a.qa === "yes" ? `<div class="toggle-note note-success">${tx.qaYes}</div>` :
-        a.qa === "no"  ? `<div class="toggle-note note-warn">${tx.qaNo}</div>` : "";
-
-      togglesHtml += `
-        <div class="toggle-row">
-          <span class="toggle-label">${tx.qa}</span>
-          <div class="toggle-btn-group">
-            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'qa','yes')" aria-pressed="${a.qa === 'yes'}">${tx.yes}</button>
-            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'qa','no')"  aria-pressed="${a.qa === 'no'}">${tx.no}</button>
-          </div>
-        </div>
-        ${noteHtml}`;
-    }
-    if (HAS_REFLECTION.includes(a.id)) {
-      const yesActive = a.reflection === "yes" ? "active-yes" : "";
-      const noActive  = a.reflection === "no"  ? "active-no"  : "";
-      const noteHtml  =
-        a.reflection === "yes" ? `<div class="toggle-note note-info">${tx.reflectionYes}</div>` :
-        a.reflection === "no"  ? `<div class="toggle-note note-warn">${tx.reflectionNo}</div>` : "";
-
-      togglesHtml += `
-        <div class="toggle-row">
-          <span class="toggle-label">${tx.reflection}</span>
-          <div class="toggle-btn-group">
-            <button class="toggle-btn ${yesActive}" onclick="setToggle(${i},'reflection','yes')" aria-pressed="${a.reflection === 'yes'}">${tx.yes}</button>
-            <button class="toggle-btn ${noActive}"  onclick="setToggle(${i},'reflection','no')"  aria-pressed="${a.reflection === 'no'}">${tx.no}</button>
-          </div>
-        </div>
-        ${noteHtml}`;  
-    }
     if (a.pct === 0) {
       togglesHtml += `<div class="toggle-note note-info">${tx.avvYes}</div>`;
-}
+    }
       const safeNote    = a.note.replace(/"/g, "&quot;");
     const riskLabelKey = "risk" + a.risk.charAt(0).toUpperCase() + a.risk.slice(1);
 
@@ -642,13 +543,17 @@ function renderFeedback() {
   const medPct  = assessments.filter(a => a.risk === "medium").reduce((s, a) => s + a.pct, 0);
   const lowPct  = assessments.filter(a => a.risk === "low").reduce((s, a) => s + a.pct, 0);
 
-  const effScore = a =>
-    (a.id === "peer-review" && a.inclass === "yes") ? 1 :
-    (a.id === "presentation" && a.qa === "yes") ? 1.25 :
-    (a.id === "take-home-writing" && a.oral === "yes") ? 2.5 :
-    (a.id === "group-work" && a.oral === "yes") ? 2.5 :
-
-    RISK_SCORE[a.risk];
+  const effScore = a => {
+    const found = ASSESSMENTS.find(x => x.id === a.id);
+    if (found?.scoreOverrides) {
+      for (const [key, score] of Object.entries(found.scoreOverrides)) {
+        const [toggle, val] = key.split("_");
+        if (a[toggle] === val) return score;
+      }
+    }
+    return RISK_SCORE[a.risk];
+  };
+  
   const weighted = assessments.reduce((sum, a) => sum + effScore(a) * a.pct, 0);
 
   let vulnerability =
