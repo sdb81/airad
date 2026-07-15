@@ -18,7 +18,7 @@
   "consultText": "Want to discuss changes to your course with an expert from TLC? Feel free to reach out!",
   "consultBtn": "Schedule a consultation",
   "introTitle": "Welcome to the AI Exposure Scan!",
-  "introBody": "This tool is aimed to help you reconsider the assessment structure of your course. To get started, fill out your course name, and then select your forms of assessment. The exposure score dynamically updates based on your changes, so feel free to play around with it. Keep in mind that this score should be considered an indication.",
+  "introBody": "This tool is aimed to help you reconsider the assessment structure of your course. To get started, fill out your course name and faculty, and then select your forms of assessment. The exposure score dynamically updates based on your changes, so feel free to play around with it. Keep in mind that this score should be considered an indication.",
   "introCta": "Get started",
   "facultyPlaceholder": "Faculty...",
   "selectFacultyFirst": "Please select a faculty first.",
