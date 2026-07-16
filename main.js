@@ -818,7 +818,7 @@ function saveResult() {
         border-radius: 8px;
         font-size: 0.88rem;
         font-family: Source Sans 3, Arial, sans-serif;
-        background: ${isDark ? "#162032" : "#fff"};
+        background: ${isDark ? "#162032" : "#faf9f8"};
         color: ${isDark ? "#e5e7eb" : "inherit"};
       `;
       select.replaceWith(span);
