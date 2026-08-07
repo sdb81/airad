@@ -100,6 +100,7 @@
       }
     },
     "FNWI": {
+      "visible": false,
       "assessments": [
         "group-work",
         "in-class-activity",
