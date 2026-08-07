@@ -128,7 +128,7 @@ function applyStaticTranslations() {
   document.getElementById("intro-body").textContent          = tx.introBody;
   document.getElementById("intro-cta").textContent           = tx.introCta;
   document.getElementById("faculty-placeholder").textContent = tx.facultyPlaceholder;
-
+  document.getElementById('contact-popup').innerHTML = tx.orbText;
   const helpCloseBtn = document.getElementById("exposure-help-close");
   if (helpCloseBtn) {
     helpCloseBtn.textContent = tx.close || "Close";

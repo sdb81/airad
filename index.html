@@ -1536,6 +1536,112 @@
   <!-- External scripts -->
   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
   <script src="main.js"></script>
+  <!-- Floating Contact Orb -->
+  <style>
+  #contact-orb {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-color: #f8f7f5;
+      position:fixed;
+      cursor: pointer;
+      z-index: 9999;
+      opacity: 0.8;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+
+  #orb-img {
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  body.dark-theme #contact-orb {
+    background-color: #162032;
+  }
+
+  body.dark-theme #orb-img {
+    filter: invert(1);
+  }
+
+  #contact-orb:hover {
+      opacity: 1;
+      transform: scale(1.08);
+  }
+
+  #contact-popup {
+      position: fixed;
+      bottom: 82px;
+      right: 24px;
+      background: #fff;
+      border-radius: 10px;
+      padding: 12px 16px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      font-size: 13px;
+      color: #333;
+      z-index: 9999;
+      max-width: 220px;
+      line-height: 1.5;
+      transform-origin: bottom right;
+      transform: scale(0.6) translateY(12px);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.15s ease;
+  }
+
+
+  body.dark-theme #contact-popup {
+    background: #162032;
+    color: #eee;
+  }
+
+  #contact-popup.visible {
+      transform: scale(1) translateY(0);
+      opacity: 1;
+      pointer-events: all;
+  }
+
+  #contact-popup a {
+      color: #bc0031;
+      text-decoration: none;
+  }
+
+  #contact-popup a:hover {
+      text-decoration: underline;
+  }
+  </style>
+
+  <div id="contact-orb" title="Contact">
+    <img id="orb-img" src="https://denbroeder.eu/content/images/2026/08/Initials.png">
+  </div>  
+  <div id="contact-popup"></div>
+  <script>
+  const orb = document.getElementById('contact-orb');
+  const popup = document.getElementById('contact-popup');
+
+  orb.addEventListener('click', (e) => {
+      e.stopPropagation();
+      popup.classList.toggle('visible');
+  });
+
+  document.addEventListener('click', () => {
+      popup.classList.remove('visible');
+  });
+
+  popup.addEventListener('click', (e) => e.stopPropagation());
+  </script>
 
 </body>
 </html>

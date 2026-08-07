@@ -29,6 +29,7 @@
   "riskMedium": "medium exposure",
   "riskLow": "low exposure",
   "noteLabelPlaceholder": "Add a label or description…",
+  "orbText": "Questions or suggestions for this tool? Reach out!<br><a href=\"mailto:s.f.a.denbroeder@uva.nl?subject=AI%20Exposure%20Question\">s.f.a.denbroeder@uva.nl</a>",
 
   "compensable": "Compensable?",
   "compensableNo": "A non-compensable in-person exam means students must demonstrate their knowledge in a controlled, AI-free setting regardless of other grades. This significantly strengthens the overall AI resilience of the course. If other assessment is AI sensitive or relates to other learning goals, consider making these products 'build towards' the skills or knowledge tested on the in-person exam to encourage learning.",
