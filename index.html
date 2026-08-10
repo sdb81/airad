@@ -962,7 +962,10 @@
       display: flex;
       flex-direction: column;
       overflow-y: auto;
+      /* keep a stable gutter and reserve the existing right padding for the scrollbar
+         so the scrollbar does not overlap the text content */
       scrollbar-gutter: stable;
+      padding-right: 22px; /* match the .intro-box right padding so scrollbar sits in the white space */
     }
 
     .intro-box .lang-switcher {
@@ -991,6 +994,9 @@
       flex: 1;
       overflow-y: auto;
       margin-bottom: 16px;
+      /* also ensure inner scrolling area leaves room for the scrollbar */
+      padding-right: 8px;
+      scrollbar-gutter: stable;
     }
 
     #exposure-help-close {
