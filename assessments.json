@@ -1,5 +1,15 @@
 [
   {
+    "id": "creative-work",
+    "risk": "medium",
+    "toggles": ["intermediate", "oral"],
+    "scoreOverrides": { "oral_yes": 1.25 },
+    "nullMessages": {
+      "intermediate": "msgCreativeNull",
+      "oral":         "msgCreativeNull"
+    }
+  },
+  {
     "id": "group-work",
     "risk": "high",
     "toggles": ["intermediate", "reflection", "oral"],

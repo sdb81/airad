@@ -271,14 +271,21 @@ function applyFaculty(faculty) {
 
   // Rebuild the assessment dropdown (sorted by translated label)
   const previous = selectEl.value;
-  selectEl.innerHTML = [...allowedIds]
-    .sort((a, b) => (tx.labels[a] || a).localeCompare(tx.labels[b] || b))
-    .map(id => `<option value="${id}">${tx.labels[id] || id}</option>`)
-    .join("");
+  const placeholderText = tx.selectAssessment || "Select an assessment type...";
+  // build options with a non-selectable placeholder first
+  const optionsHtml = [`<option value="" disabled selected hidden>${placeholderText}</option>`]
+    .concat([...allowedIds]
+      .sort((a, b) => (tx.labels[a] || a).localeCompare(tx.labels[b] || b))
+      .map(id => `<option value="${id}">${tx.labels[id] || id}</option>`)
+    ).join("");
+  selectEl.innerHTML = optionsHtml;
 
   // Restore previous selection if still valid
   if (allowedIds.includes(previous)) {
     selectEl.value = previous;
+  } else {
+    // ensure placeholder remains selected when previous is invalid / empty
+    selectEl.value = "";
   }
 
   if (facultyConfig && facultyConfig.consultLink) {
@@ -311,6 +318,13 @@ function addAssessment() {
   const noteInput = document.getElementById("note-input");
 
   const id  = selectEl.value;
+  if (!id) {
+    // No assessment selected — highlight the select and bail out
+    selectEl.style.outline = "2px solid #bc0031";
+    selectEl.focus();
+    setTimeout(() => { selectEl.style.outline = ""; }, 1200);
+    return;
+  }
   const pct = parseInt(pctInput.value, 10);
 
   if (isNaN(pct) || pct < 0 || pct > 100) {
@@ -391,6 +405,7 @@ function renderExposureHelpContent() {
       "group-work"
     ],
     medium: [
+      "creative-work",
       "peer-review",
       "presentation"
     ],
