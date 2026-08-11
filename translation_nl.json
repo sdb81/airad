@@ -60,9 +60,10 @@
   "reflectionNo": "Zonder individuele reflectie is het moeilijk om de persoonlijke bijdrage van elke student te verifiëren. Overweeg er een toe te voegen om individuele verantwoording te versterken.",
 
   "full_overview": "Volledig overzicht?",
-  "full_overviewYes": "Een volledig, ononderbroken overzicht van studenten en hun schermen tijdens het tentamen kan de AI-gevoeligheid verlagen, hoewel dit soort surveilleren zeer intensief kan zijn en mogelijk niet waterdicht is.",
-  "full_overviewNo": "Zonder een ononderbroken overzicht van studenten en hun schermen is het nog steeds mogelijk dat ze AI-toepassingen gebruiken tijdens het tentamen.",
-  "msgFONull": "You have an in-person exam on students' own devices — please indicate above whether you have a full overview of students and their screens to get accurate course-level feedback.",
+  "full_overviewYes": "Een volledig, ononderbroken overzicht van studenten en hun schermen tijdens het tentamen kan de AI-gevoeligheid verlagen, hoewel dit soort surveilleren zeer intensief kan zijn en mogelijk niet waterdicht is. Overweeg het tentamen met UvA-beheerde apparaten of handgeschreven te laten maken om AI-gevoeligheid te verlagen.",
+  "full_overviewNo": "Zonder een ononderbroken overzicht van studenten en hun schermen is het nog steeds mogelijk dat ze AI-toepassingen gebruiken tijdens het tentamen. Overweeg het tentamen met UvA-beheerde apparaten of handgeschreven te laten maken om AI-gevoeligheid te verlagen.",
+  "byodNull": "You have an in-person exam on students' own devices — please indicate above whether you have a full overview of students and their screens t get accurate course-level feedback.",
+
 
   "totalWeight": "Totale weging",
   "legendHigh": "Hoge gevoeligheid",

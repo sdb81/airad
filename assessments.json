@@ -37,7 +37,7 @@
     "toggles": ["full_overview"],
     "scoreOverrides": { "full_overview_yes": 1.5 },
     "riskOverrides": { "full_overview_yes": "medium" },
-    "nullMessages": { "full_overview": "full_overviewNull" }
+    "nullMessages": { "full_overview": "byodNull" }
     },
   {
     "id": "oral-exam",

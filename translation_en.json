@@ -59,9 +59,9 @@
   "reflectionNo": "Without an individual reflection, it is difficult to verify each student's personal contribution and understanding. Consider adding one to strengthen accountability.",
 
   "full_overview": "Full overview?",
-  "full_overviewYes": "Having a clear, uninterrupted overview of students and their screens as they conduct the exam can reduce AI exposure, though this kind of invigilation can be very intensive and may not be fool-proof.",
-  "full_overviewNo": "Without an uninterrupted overview of students and their screens, it is still possible for them to access AI tools during the exam.",
-  "full_overviewNull": "You have an in-person exam on students' own devices — please indicate above whether you have a full overview of students and their screens to get accurate course-level feedback.",
+  "full_overviewYes": "Having a clear, uninterrupted overview of students and their screens as they conduct the exam can reduce AI exposure, though this kind of invigilation can be very intensive and may not be fool-proof. Consider conducting the exam with UvA-controlled devices, or in handwritten format, to further reduce AI exposure.",
+  "full_overviewNo": "Without an uninterrupted overview of students and their screens, it is still possible for them to access AI tools during the exam. Consider conducting the exam with UvA-controlled devices, or in handwritten format, to reduce AI exposure.",
+  "byodNull": "You have an in-person exam on students' own devices — please indicate above whether you have a full overview of students and their screens to get accurate course-level feedback.",
 
   "totalWeight": "Total weight",
   "legendHigh": "High exposure",
