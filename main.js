@@ -862,6 +862,14 @@ function resetState() {
 
   document.getElementById("course-title").value          = "";
   document.getElementById("header-subtitle").textContent = "";
+  // reset faculty selection
+  selectedFaculty = "";
+  const facultySel = document.getElementById("faculty-select");
+  if (facultySel) {
+    try { facultySel.value = ""; } catch (e) { facultySel.selectedIndex = 0; }
+  }
+  // reset consult button state
+  initConsultBtn();
 
   document.getElementById("add-card").classList.add("hidden");
   document.getElementById("structure-card").classList.add("hidden");
