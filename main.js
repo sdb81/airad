@@ -718,6 +718,16 @@ function renderFeedback() {
     messages.push({ type: "success", icon: "🗣️", text: tx.msgOralExam });
   }
 
+  // Take-home exams
+  if (assessments.some(a => a.id === "take-home-exam")) {
+    messages.push({ type: "danger", icon: "🚨", text: tx.msgTakeHomeExam });
+  }
+  
+  // Take-home multiple-choice exams
+  if (assessments.some(a => a.id === "take-home-mc")) {
+    messages.push({ type: "danger", icon: "🚨", text: tx.msgTakeHomeMC });
+  }
+
   feedbackEl.innerHTML = `
     <div class="total-row">
       <span class="total-label">${tx.totalWeight}</span>
