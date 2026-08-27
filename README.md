@@ -20,3 +20,6 @@ This site uses a self-hosted instance of [Umami](https://umami.is), a privacy-fo
 - No cookies
 - No cross-site tracking
 - No fingerprinting
+
+# Acknowledgements
+Made with [UvA AI Chat](https://aichat.uva.nl/chat).
