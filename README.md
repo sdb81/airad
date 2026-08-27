@@ -1,7 +1,7 @@
 # Welcome!
+This is the Github page for Sebastiaan den Broeder's AI Exposure Scan tool for the University of Amsterdam.
 ## URL
-Current url: rss.denbroeder.eu/host/assessment
-(denbroeder.eu/host/airad was shared earlier, and also forwards to the page above)
+Current URL: [rss.denbroeder.eu/host/assessment](https://rss.denbroeder.eu/host/assessment/)
 
 ## Work in Progress
 Please see Issues > Feedback for what we're working on!
