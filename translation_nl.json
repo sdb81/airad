@@ -21,6 +21,13 @@
   "introBody": "Deze tool is bedoeld om je te helpen de toetsstructuur van je cursus te heroverwegen. Vul om te beginnen de naam van je cursus en je faculteit in, en selecteer vervolgens je toetsvormen. De AI-gevoeligheidsscore past zich dynamisch aan op basis van je wijzigingen, dus voel je vrij om ermee te experimenteren. Houd er rekening mee dat deze score slechts een indicatie is.",
   "introCta": "Aan de slag",
   "facultyPlaceholder": "Faculteit...",
+  "facultyNames": {
+    "FdG": "Faculteit der Geneeskunde",
+    "FdR": "Faculteit der Rechtsgeleerdheid",
+    "FGw": "Faculteit der Geesteswetenschappen",
+    "FMG": "Faculteit der Maatschappij- en Gedragswetenschappen",
+    "FEB": "Economie en Bedrijfskunde"
+  },
   "selectAssessment": "Selecteer een toetsvorm...",
   "selectFacultyFirst": "Selecteer eerst een faculteit.",
   "close": "Sluiten",

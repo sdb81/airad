@@ -328,6 +328,63 @@
       transition: background 0.2s, border-color 0.2s, color 0.2s;
     }
 
+    .faculty-select-wrap {
+      position: relative;
+      flex: 0 0 90px;
+    }
+
+    .faculty-select-wrap::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      right: 12px;
+      width: 4px;
+      height: 4px;
+      border-right: 1px solid #767270;
+      border-bottom: 1px solid #767270;
+      transform: translateY(-65%) rotate(45deg);
+      pointer-events: none;
+    }
+
+    .faculty-select-wrap .faculty-select {
+      width: 100%;
+      color: transparent;
+      text-indent: -9999px;
+    }
+
+    .faculty-select-wrap .faculty-select option {
+      color: #1b1918;
+      text-indent: 0;
+    }
+
+    .faculty-select-display {
+      position: absolute;
+      inset: 1px 28px 1px 10px;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+      color: #1b1918;
+      font-size: 0.88rem;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .faculty-select-display.placeholder {
+      color: #a8a29f;
+    }
+
+    body.dark-theme .faculty-select-display {
+      color: #e5e7eb;
+    }
+
+    body.dark-theme .faculty-select-wrap::after {
+      border-color: #9ca3af;
+    }
+
+    body.dark-theme .faculty-select-display.placeholder {
+      color: #6b7280;
+    }
+
     .faculty-select:focus {
       outline: 2px solid #bc0031;
       outline-offset: 1px;
@@ -343,6 +400,10 @@
 
     body.dark-theme .faculty-select option {
       color: #e5e7eb;
+    }
+
+    body.dark-theme .faculty-select-wrap .faculty-select {
+      color: transparent;
     }
     /* ──────────────────────────────────────────────────────────────────────────
        ADD ASSESSMENT CARD
@@ -1548,15 +1609,18 @@
     <h2 id="label-course-title"></h2>
     <div class="course-title-row">
       <input type="text" class="course-title-input" id="course-title" oninput="updateCourseTitle()" />
+      <div class="faculty-select-wrap">
       <select id="faculty-select" class="faculty-select" onchange="updateFaculty()" required>
         <option value="" id="faculty-placeholder" disabled hidden selected style="display:none"></option>
-        <option value="FdG">FdG</option>
-        <option value="FdR">FdR</option>
+        <option value="FdG" data-abbreviation="FdG">FdG</option>
+        <option value="FdR" data-abbreviation="FdR">FdR</option>
         <!-- <option value="FEB">FEB</option> -->
-        <option value="FGw">FGw</option>
-        <option value="FMG">FMG</option>
+        <option value="FGw" data-abbreviation="FGw">FGw</option>
+        <option value="FMG" data-abbreviation="FMG">FMG</option>
         <!--<option value="FNWI">FNWI</option> -->
       </select>
+      <span id="faculty-select-display" class="faculty-select-display" aria-hidden="true"></span>
+      </div>
     </div>
   </div>
 

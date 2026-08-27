@@ -141,13 +141,33 @@ function applyStaticTranslations() {
     helpTitleEl.textContent = tx.helpExposureTitle || "How are exposure scores decided?";
   }
 
-  const facultyEl = document.getElementById("faculty-select");
+  setFacultyOptionLabels(false);
 
   // Build the grouped help content with badges
   renderExposureHelpContent();
 
   applyFaculty(selectedFaculty);  // replaces the old selectEl.innerHTML block
 } 
+
+function setFacultyOptionLabels(showFullNames) {
+  const facultyEl = document.getElementById("faculty-select");
+  const facultyNames = TX[lang] && TX[lang].facultyNames;
+  if (!facultyEl || !facultyNames) return;
+
+  facultyEl.querySelectorAll("option[data-abbreviation]").forEach(option => {
+    option.textContent = facultyNames[option.value] || option.dataset.abbreviation;
+  });
+
+  const displayEl = document.getElementById("faculty-select-display");
+  if (displayEl) {
+    const hasSelection = Boolean(facultyEl.value);
+    displayEl.textContent = hasSelection
+      ? facultyEl.value
+      : (TX[lang].facultyPlaceholder || "Faculty...");
+    displayEl.classList.toggle("placeholder", !hasSelection);
+  }
+}
+
 // ─── Persistence ──────────────────────────────────────────────────────────────
 function saveState() {
   try {
@@ -195,6 +215,7 @@ function loadState() {
       selectedFaculty = state.faculty;
       document.getElementById("faculty-select").value = state.faculty;
       applyFaculty(state.faculty);
+      setFacultyOptionLabels(false);
     } else {
       console.log("no faculty found, calling initConsultBtn");
       initConsultBtn();
@@ -253,6 +274,8 @@ function updateFaculty() {
   const faculty = el.value;
   selectedFaculty = faculty;
   applyFaculty(faculty);
+  // Keep the collapsed select display compact after a selection is made.
+  setFacultyOptionLabels(false);
 
   const title = document.getElementById("course-title").value.trim();
   document.getElementById("add-card").classList.toggle("hidden", !title || !faculty);
@@ -879,6 +902,7 @@ function resetState() {
   const facultySel = document.getElementById("faculty-select");
   if (facultySel) {
     try { facultySel.value = ""; } catch (e) { facultySel.selectedIndex = 0; }
+    setFacultyOptionLabels(false);
   }
   // reset consult button state
   initConsultBtn();

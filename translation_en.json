@@ -21,6 +21,13 @@
   "introBody": "This tool is aimed to help you reconsider the assessment structure of your course. To get started, fill out your course name and faculty, and then select your forms of assessment. The exposure score dynamically updates based on your changes, so feel free to play around with it. Keep in mind that this score should be considered an indication.",
   "introCta": "Get started",
   "facultyPlaceholder": "Faculty...",
+  "facultyNames": {
+    "FdG": "Faculty of Medicine",
+    "FdR": "Amsterdam Law School",
+    "FGw": "Faculty of Humanities",
+    "FMG": "Faculty of Social and Behavioural Sciences",
+    "FEB": "Economics and Business"
+  },
   "selectAssessment": "Select an assessment type...",
   "selectFacultyFirst": "Please select a faculty first.",
   "close": "Close",
