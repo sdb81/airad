@@ -211,6 +211,27 @@
       background: rgba(255, 255, 255, 0.22);
     }
 
+    .github-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      border: 2px solid rgba(255, 255, 255, 0.7);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #ffffff;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+
+    .github-link:hover {
+      background: rgba(255, 255, 255, 0.22);
+      border-color: #ffffff;
+      color: #ffffff;
+    }
+
     .theme-toggle.is-dark {
       background: #ffffff;
       color: #bc0031;
@@ -1465,6 +1486,17 @@
         <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
         <button class="lang-btn" id="lang-nl" onclick="setLang('nl')">NL</button>
       </div>
+
+      <a
+        class="github-link"
+        href="https://github.com/sdb81/airad"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="View this project on GitHub"
+        title="View on GitHub"
+      >
+        <i class="fa-brands fa-github fa-icon" aria-hidden="true"></i>
+      </a>
     </div>
   </div>
 
