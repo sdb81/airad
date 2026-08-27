@@ -119,10 +119,14 @@
       flex-shrink: 0;
     }
 
-    /* Header buttons */
-    .header-save-btn,
+    /* Header controls */
     .header-reset-btn,
     .theme-toggle {
+      height: 34px;
+      width: 40px;
+      padding: 0;
+      box-sizing: border-box;
+      line-height: 1;
       font-family: "Source Sans 3", "Source Sans Pro", Arial, sans-serif;
       border-radius: 8px;
       font-size: 0.85rem;
@@ -133,21 +137,7 @@
       transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
 
-    .header-save-btn {
-      padding: 8px 18px;
-      background: #ffffff;
-      color: #bc0031;
-      border: 2px solid #ffffff;
-    }
-
-    .header-save-btn:hover {
-      background: #fce5eb;
-      border-color: #ffffff;
-      color: #840022;
-    }
-
     .header-reset-btn {
-      padding: 8px 18px;
       background: rgba(255, 255, 255, 0.18);
       color: #ffffff;
       border: 2px solid rgba(255, 255, 255, 0.7);
@@ -162,6 +152,8 @@
     /* Language switcher */
     .lang-switcher {
       display: flex;
+      height: 34px;
+      box-sizing: border-box;
       border-radius: 8px;
       overflow: hidden;
       border: 2px solid rgba(255, 255, 255, 0.7);
@@ -169,6 +161,7 @@
     }
 
     .lang-btn {
+      height: 30px;
       padding: 6px 11px;
       font-size: 0.78rem;
       font-weight: 700;
@@ -197,7 +190,6 @@
 
     /* Theme toggle */
     .theme-toggle {
-      padding: 6px 11px;
       font-size: 0.78rem;
       font-weight: 500;
       border-radius: 8px;
@@ -217,6 +209,8 @@
       justify-content: center;
       width: 34px;
       height: 34px;
+      box-sizing: border-box;
+      line-height: 1;
       border: 2px solid rgba(255, 255, 255, 0.7);
       border-radius: 8px;
       background: rgba(255, 255, 255, 0.12);
@@ -904,7 +898,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 10px;
       flex-wrap: wrap;
       transition: background 0.2s;
     }
@@ -920,6 +914,10 @@
       font-weight: 600;
       flex: 1;
       min-width: 200px;
+    }
+
+    .consult-btn.hidden {
+      display: none;
     }
 
     .consult-btn {
@@ -939,6 +937,31 @@
 
     .consult-btn:hover {
       background: #840022;
+    }
+
+    .consult-card .save-result-btn {
+      background: #ffffff;
+      color: #bc0031;
+      border: 1px solid #bc0031;
+      cursor: pointer;
+    }
+
+    .consult-card .save-result-btn:hover {
+      background: #fce5eb;
+      color: #840022;
+      border-color: #bc0031;
+    }
+
+    body.dark-theme .consult-card .save-result-btn {
+      background: #1e293b;
+      color: #fca5a5;
+      border-color: #fca5a5;
+    }
+
+    body.dark-theme .consult-card .save-result-btn:hover {
+      background: #3b0820;
+      color: #fecaca;
+      border-color: #fecaca;
     }
 
     .consult-btn.help-btn {
@@ -1339,7 +1362,6 @@
         flex-wrap: wrap;
       }
 
-      .header-save-btn,
       .header-reset-btn {
         font-size: 0.78rem;
         padding: 6px 12px;
@@ -1401,9 +1423,17 @@
         align-items: flex-start;
       }
 
-      .consult-btn {
+      .consult-card .consult-btn {
         width: 100%;
         text-align: center;
+      }
+
+      .consult-card #consult-btn {
+        order: 1;
+      }
+
+      .consult-card .save-result-btn {
+        order: 2;
       }
 
       .score-section {
@@ -1475,17 +1505,19 @@
     </div>
 
     <div class="header-right">
-      <button type="button" id="header-reset-btn" class="header-reset-btn hidden" onclick="resetState()"></button>
-      <button type="button" id="header-save-btn" class="header-save-btn hidden" onclick="saveResult()"></button>
+      <button
+        type="button"
+        id="header-reset-btn"
+        class="header-reset-btn hidden"
+        onclick="resetState()"
+        aria-label="Reset assessment"
+      >
+        <i class="fa-solid fa-arrow-rotate-left fa-icon" aria-hidden="true"></i>
+      </button>
 
       <button type="button" id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
         &#x25D1;
       </button>
-
-      <div class="lang-switcher">
-        <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" id="lang-nl" onclick="setLang('nl')">NL</button>
-      </div>
 
       <a
         class="github-link"
@@ -1497,6 +1529,11 @@
       >
         <i class="fa-brands fa-github fa-icon" aria-hidden="true"></i>
       </a>
+
+      <div class="lang-switcher">
+        <button class="lang-btn" id="lang-en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" id="lang-nl" onclick="setLang('nl')">NL</button>
+      </div>
     </div>
   </div>
 
@@ -1573,6 +1610,12 @@
         target="_blank"
         rel="noopener"
       ></a>
+      <button
+        type="button"
+        id="header-save-btn"
+        class="consult-btn save-result-btn hidden"
+        onclick="saveResult()"
+      ></button>
     </div>
 
   </div>

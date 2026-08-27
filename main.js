@@ -110,7 +110,9 @@ function applyStaticTranslations() {
   document.title = tx.pageTitle;
   document.getElementById("header-title").textContent        = tx.headerTitle;
   document.getElementById("header-save-btn").textContent     = tx.saveBtn;
-  document.getElementById("header-reset-btn").textContent    = tx.resetBtn;
+  const resetBtn = document.getElementById("header-reset-btn");
+  resetBtn.setAttribute("aria-label", tx.resetBtn);
+  resetBtn.setAttribute("title", tx.resetBtn);
   document.getElementById("label-course-title").textContent  = tx.courseTitle;
   document.getElementById("course-title").placeholder        = tx.coursePlaceholder;
   document.getElementById("label-add-component").textContent = tx.addComponent;
