@@ -72,6 +72,8 @@ async function loadAll() {
     lang = detectLang();
     setLang(lang);
     loadState();
+    // Ensure the custom collapsed display is initialized on the first page load.
+    setFacultyOptionLabels(false);
     maybeShowIntro();
   }
 
@@ -854,15 +856,17 @@ function saveResult() {
         input.replaceWith(span);
       });
       
-      // Replace faculty select with centered span
-    clonedDoc.querySelectorAll(".faculty-select").forEach(select => {
+      // Replace the faculty selector wrapper with a centered abbreviation span.
+    clonedDoc.querySelectorAll(".faculty-select-wrap").forEach(wrapper => {
+      const select = wrapper.querySelector(".faculty-select");
+      if (!select) return;
       const span = clonedDoc.createElement("span");
-      span.textContent = select.options[select.selectedIndex]?.text ?? "";
+      span.textContent = select.value || "";
       span.style.cssText = `
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: ${select.offsetWidth}px;
+        width: ${wrapper.offsetWidth}px;
         height: ${select.offsetHeight}px;
         border: 1px solid ${isDark ? "#4b5563" : "#d7d6d4"};
         border-radius: 8px;
@@ -871,7 +875,7 @@ function saveResult() {
         background: ${isDark ? "#162032" : "#faf9f8"};
         color: ${isDark ? "#e5e7eb" : "inherit"};
       `;
-      select.replaceWith(span);
+      wrapper.replaceWith(span);
     });
 
       const header = clonedDoc.querySelector(".header-bar");
