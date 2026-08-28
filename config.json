@@ -43,7 +43,7 @@
       ],
       "consultLink": "https://amsuni.sharepoint.com/:l:/s/FMG_PRJ_TLC_TLC_FMG_core_team/FBa7kq-wc2BIqGlo8OIn84MBvjf1ydn8g781E0O-XWAR_A?nav=NjVhMTY5ZmItN2U5Yy00OTBmLTg1MDUtMTY5ZmEzY2IxNDgx"
     },
-    "FEB": {
+    "EB": {
       "assessments": [
         "creative-work",
         "group-work",
@@ -59,8 +59,8 @@
         "take-home-writing"
       ],
      "consultLink": {
-      "en": "mailto:assessmentexpert-eb@uva.nl?subject=AI%20Exposure%20Scan%20Consultation",
-      "nl": "mailto:assessmentexpert-eb@uva.nl?subject=AI%20Gevoeligheidsscan%20Consult"
+      "en": "mailto:tlc-eb@uva.nl?subject=AI%20Exposure%20Scan%20Consultation",
+      "nl": "mailto:tlc-eb@uva.nl?subject=AI%20Gevoeligheidsscan%20Consult"
       }
     },
     "FdR": {
