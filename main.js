@@ -32,6 +32,22 @@ function t(key) {
   return (TX[lang] && TX[lang][key]) || (TX.en && TX.en[key]) || key;
 }
 
+// ─── Faculty URL slugs ───────────────────────────────────────────────────────
+function getFacultyFromUrl() {
+  const pathSlug = window.location.pathname
+    .replace(/\/+$/, "")
+    .split("/")
+    .pop()
+    .toLowerCase();
+
+  if (!pathSlug || pathSlug === "index.html") return "";
+
+  const faculty = Object.keys(CONFIG.faculties || {})
+    .find(key => key.toLowerCase() === pathSlug);
+
+  return faculty || "";
+}
+
 // ─── Data loading ─────────────────────────────────────────────────────────────
 async function loadAll() {
   let enRaw, nlRaw, assessmentsRaw, configRaw;
@@ -72,6 +88,19 @@ async function loadAll() {
     lang = detectLang();
     setLang(lang);
     loadState();
+
+    // A valid faculty slug in the URL takes precedence over saved state.
+    const urlFaculty = getFacultyFromUrl();
+    if (urlFaculty) {
+      selectedFaculty = urlFaculty;
+      document.getElementById("faculty-select").value = urlFaculty;
+      applyFaculty(urlFaculty);
+      setFacultyOptionLabels(false);
+      const title = document.getElementById("course-title").value.trim();
+      document.getElementById("add-card").classList.toggle("hidden", !title);
+      saveState();
+    }
+
     // Ensure the custom collapsed display is initialized on the first page load.
     setFacultyOptionLabels(false);
     maybeShowIntro();
@@ -896,6 +925,8 @@ function saveResult() {
 
 // ─── Reset ────────────────────────────────────────────────────────────────────
 function resetState() {
+  if (!window.confirm(t("resetText"))) return;
+
   assessments = [];
   assessmentSectionsVisible = false;
 

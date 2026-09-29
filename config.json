@@ -26,6 +26,26 @@
   },
 
   "faculties": {
+    "AUC": {
+      "assessments": [
+        "creative-work",
+        "group-work",
+        "in-class-activity",
+        "in-person-exam",
+        "in-person-byod",
+        "oral-exam",
+        "participation",
+        "peer-review",
+        "presentation",
+        "take-home-exam",
+        "take-home-mc",
+        "take-home-writing"
+      ],
+     "consultLink": {
+      "en": "mailto:sample@uva.nl?subject=AI%20Exposure%20Scan%20Consultation",
+      "nl": "mailto:sample@uva.nl?subject=AI%20Gevoeligheidsscan%20Consult"
+      }
+    },
     "FMG": {
       "assessments": [
         "creative-work",

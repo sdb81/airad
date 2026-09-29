@@ -3,6 +3,15 @@ This is the Github page for Sebastiaan den Broeder's AI Exposure Scan tool for t
 ## URL
 Current URL: [rss.denbroeder.eu/host/assessment](https://rss.denbroeder.eu/host/assessment/)
 
+### Faculty-specific URLs
+Appending a faculty slug automatically selects that faculty, for example:
+
+- `/fmg` → FMG
+- `/eb` → EB
+- `/fdr` → FdR
+
+The slug matching is case-insensitive. The web server must route unknown paths back to `index.html` for these URLs to load correctly.
+
 ## Work in Progress
 Please see Issues > Feedback for what we're working on!
 

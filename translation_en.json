@@ -3,6 +3,7 @@
   "headerTitle": "AI Exposure Scan",
   "saveBtn": "Save result",
   "resetBtn": "Reset",
+  "resetText": "Resetting will clear your current work. Please consider saving your result before resetting. Do you want to reset now?",
   "courseTitle": "Course Title",
   "coursePlaceholder": "Enter your course title...",
   "addComponent": "Add Assessment Component",
@@ -18,7 +19,7 @@
   "consultText": "Want to discuss changes to your course with an expert from TLC? Feel free to reach out!",
   "consultBtn": "Plan a consultation",
   "introTitle": "Welcome to the AI Exposure Scan!",
-  "introBody": "This tool is aimed to help you reconsider the assessment structure of your course. To get started, fill out your course name and faculty, and then select your forms of assessment. The exposure score dynamically updates based on your changes, so feel free to play around with it. Keep in mind that this score should be considered an indication.",
+  "introBody": "This tool is aimed to help you reconsider the assessment structure of your course. To get started, fill out your course name and faculty, and then select your forms of assessment. The exposure score dynamically updates based on your changes, so feel free to play around with it. Keep in mind that this score should be considered an indication. Your work is automatically stored in your browser.",
   "introCta": "Get started",
   "facultyPlaceholder": "Faculty...",
   "facultyNames": {
@@ -26,7 +27,8 @@
     "FdR": "Amsterdam Law School",
     "FGw": "Faculty of Humanities",
     "FMG": "Faculty of Social and Behavioural Sciences",
-    "EB": "Economics and Business"
+    "EB": "Economics and Business",
+    "AUC": "Amsterdam University College"
   },
   "selectAssessment": "Select an assessment type...",
   "selectFacultyFirst": "Please select a faculty first.",
