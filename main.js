@@ -76,6 +76,20 @@ function renderFacultyOptions() {
   }
 }
 
+function applyFacultyFromUrl() {
+  const urlFaculty = getFacultyFromUrl();
+  if (!urlFaculty || urlFaculty === selectedFaculty) return;
+
+  selectedFaculty = urlFaculty;
+  document.getElementById("faculty-select").value = urlFaculty;
+  applyFaculty(urlFaculty);
+  setFacultyOptionLabels(false);
+
+  const title = document.getElementById("course-title").value.trim();
+  document.getElementById("add-card").classList.toggle("hidden", !title);
+  saveState();
+}
+
 // ─── Data loading ─────────────────────────────────────────────────────────────
 async function loadAll() {
   let enRaw, nlRaw, assessmentsRaw, configRaw;
@@ -119,16 +133,7 @@ async function loadAll() {
     loadState();
 
     // A valid faculty slug in the URL takes precedence over saved state.
-    const urlFaculty = getFacultyFromUrl();
-    if (urlFaculty) {
-      selectedFaculty = urlFaculty;
-      document.getElementById("faculty-select").value = urlFaculty;
-      applyFaculty(urlFaculty);
-      setFacultyOptionLabels(false);
-      const title = document.getElementById("course-title").value.trim();
-      document.getElementById("add-card").classList.toggle("hidden", !title);
-      saveState();
-    }
+    applyFacultyFromUrl();
 
     // Ensure the custom collapsed display is initialized on the first page load.
     setFacultyOptionLabels(false);
@@ -1062,6 +1067,8 @@ document.getElementById("consult-btn").addEventListener("click", function(e) {
     alert(TX[lang].selectFacultyFirst || "Please select a faculty first.");
   }
 });
+window.addEventListener("popstate", applyFacultyFromUrl);
+window.addEventListener("hashchange", applyFacultyFromUrl);
 // ─── Boot ─────────────────────────────────────────────────────────────────────
 loadAll();
 loadTheme();
