@@ -40,12 +40,40 @@ function getFacultyFromUrl() {
     .pop()
     .toLowerCase();
 
-  if (!pathSlug || pathSlug === "index.html") return "";
+  const queryFaculty = new URLSearchParams(window.location.search).get("faculty");
+  const hashFaculty = window.location.hash.replace(/^#\/?/, "");
+  const slug = (queryFaculty || hashFaculty || pathSlug).toLowerCase();
+
+  if (!slug || slug === "index.html") return "";
 
   const faculty = Object.keys(CONFIG.faculties || {})
-    .find(key => key.toLowerCase() === pathSlug);
+    .find(key => key.toLowerCase() === slug && CONFIG.faculties[key].visible !== false);
 
   return faculty || "";
+}
+
+function renderFacultyOptions() {
+  const facultyEl = document.getElementById("faculty-select");
+  if (!facultyEl) return;
+
+  const selectedValue = facultyEl.value;
+  const placeholder = facultyEl.querySelector("#faculty-placeholder");
+  facultyEl.innerHTML = "";
+  if (placeholder) facultyEl.appendChild(placeholder);
+
+  Object.entries(CONFIG.faculties || {})
+    .filter(([, facultyConfig]) => facultyConfig.visible !== false)
+    .forEach(([faculty]) => {
+      const option = document.createElement("option");
+      option.value = faculty;
+      option.dataset.abbreviation = faculty;
+      option.textContent = faculty;
+      facultyEl.appendChild(option);
+    });
+
+  if (selectedValue && [...facultyEl.options].some(option => option.value === selectedValue)) {
+    facultyEl.value = selectedValue;
+  }
 }
 
 // ─── Data loading ─────────────────────────────────────────────────────────────
@@ -70,6 +98,7 @@ async function loadAll() {
   TX = { en: enRaw, nl: nlRaw };
   ASSESSMENTS = assessmentsRaw;
   CONFIG = configRaw;
+  renderFacultyOptions();
 
   // Build derived maps from assessments.json
   RISK = {};

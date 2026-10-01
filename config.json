@@ -27,6 +27,7 @@
 
   "faculties": {
     "AUC": {
+      "visible": true,
       "assessments": [
         "creative-work",
         "group-work",
@@ -47,6 +48,7 @@
       }
     },
     "FMG": {
+      "visible": true,
       "assessments": [
         "creative-work",
         "group-work",
@@ -64,6 +66,7 @@
       "consultLink": "https://amsuni.sharepoint.com/:l:/s/FMG_PRJ_TLC_TLC_FMG_core_team/FBa7kq-wc2BIqGlo8OIn84MBvjf1ydn8g781E0O-XWAR_A?nav=NjVhMTY5ZmItN2U5Yy00OTBmLTg1MDUtMTY5ZmEzY2IxNDgx"
     },
     "EB": {
+      "visible": true,
       "assessments": [
         "creative-work",
         "group-work",
@@ -84,6 +87,7 @@
       }
     },
     "FdR": {
+      "visible": true,
       "assessments": [
         "creative-work",
         "group-work",
@@ -103,6 +107,7 @@
       }
     },
     "FdG": {
+      "visible": true,
       "assessments": [
         "creative-work",
         "group-work",
@@ -144,6 +149,7 @@
       }
     },
     "FGw": {
+      "visible": true,
       "assessments": [
         "creative-work",
         "group-work",
@@ -164,6 +170,7 @@
       }
     },
     "ACTA": {
+      "visible": false,
       "assessments": [
         "creative-work",
         "group-work",
