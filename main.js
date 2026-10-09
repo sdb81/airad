@@ -5,6 +5,7 @@ const INTRO_KEY   = "aiResilientAssessmentIntroSeen";
 const LANG_KEY    = "aiResilientAssessmentLang";
 const VERSION_KEY = "aiResilientAssessmentVersion";
 const THEME_KEY = "aiExposureTheme";
+let themeTransitionTimer;
 
 let TX        = {};   
 let ASSESSMENTS = []; 
@@ -19,6 +20,7 @@ let selectedFaculty = "";
 let assessments = [];
 let assessmentSectionsVisible = false;
 let lang = "en";
+let renderedAssessmentIds = new Set();
 
 // ─── Interpolation helper ─────────────────────────────────────────────────────
 function interpolate(template, vars) {
@@ -86,7 +88,7 @@ function applyFacultyFromUrl() {
   setFacultyOptionLabels(false);
 
   const title = document.getElementById("course-title").value.trim();
-  document.getElementById("add-card").classList.toggle("hidden", !title);
+  setAddCardVisibility(Boolean(title), false);
   saveState();
 }
 
@@ -301,8 +303,7 @@ function loadState() {
           : assessments.length > 0;
 
       if (assessmentSectionsVisible || assessments.length > 0) {
-        document.getElementById("structure-card").classList.remove("hidden");
-        document.getElementById("feedback-card").classList.remove("hidden");
+        revealAssessmentSections();
         document.getElementById("header-save-btn").classList.remove("hidden");
         document.getElementById("header-reset-btn").classList.remove("hidden");
       }
@@ -330,7 +331,7 @@ function updateCourseTitle() {
   const value = document.getElementById("course-title").value.trim();
   document.getElementById("header-subtitle").textContent = value || "";
   const facultySelected = !!selectedFaculty;
-  document.getElementById("add-card").classList.toggle("hidden", !value || !facultySelected);
+  setAddCardVisibility(Boolean(value && facultySelected));
   saveState();
 }
 
@@ -343,9 +344,22 @@ function updateFaculty() {
   setFacultyOptionLabels(false);
 
   const title = document.getElementById("course-title").value.trim();
-  document.getElementById("add-card").classList.toggle("hidden", !title || !faculty);
+  setAddCardVisibility(Boolean(title && faculty));
 
   saveState();
+}
+
+function setAddCardVisibility(visible, animate = true) {
+  const addCard = document.getElementById("add-card");
+  const wasHidden = addCard.classList.contains("hidden");
+
+  addCard.classList.toggle("hidden", !visible);
+
+  if (visible && wasHidden && animate) {
+    addCard.classList.remove("section-reveal-add");
+    void addCard.offsetWidth;
+    addCard.classList.add("section-reveal-add");
+  }
 }
 
 function applyFaculty(faculty) {
@@ -394,12 +408,25 @@ function applyFaculty(faculty) {
 function showAssessmentSectionsOnce() {
   if (!assessmentSectionsVisible) {
     assessmentSectionsVisible = true;
-    document.getElementById("structure-card").classList.remove("hidden");
-    document.getElementById("feedback-card").classList.remove("hidden");
+    revealAssessmentSections();
     document.getElementById("header-save-btn").classList.remove("hidden");
     document.getElementById("header-reset-btn").classList.remove("hidden");
     saveState();
   }
+}
+
+function revealAssessmentSections() {
+  const structureCard = document.getElementById("structure-card");
+  const feedbackCard = document.getElementById("feedback-card");
+
+  structureCard.classList.remove("hidden");
+  feedbackCard.classList.remove("hidden");
+
+  structureCard.classList.remove("section-reveal-structure");
+  feedbackCard.classList.remove("section-reveal-feedback");
+  void structureCard.offsetWidth;
+  structureCard.classList.add("section-reveal-structure");
+  feedbackCard.classList.add("section-reveal-feedback");
 }
 
 function addAssessment() {
@@ -445,9 +472,15 @@ function addAssessment() {
 }
 
 function removeAssessment(index) {
-  assessments.splice(index, 1);
-  saveState();
-  render();
+  const item = document.querySelectorAll("#assessment-list .assessment-item")[index];
+  if (!item) return;
+
+  item.classList.add("is-removing");
+  setTimeout(() => {
+    assessments.splice(index, 1);
+    saveState();
+    render();
+  }, 180);
 }
 
 function updatePct(index, value) {
@@ -472,8 +505,53 @@ function setToggle(index, field, value) {
 
 // ─── Render ───────────────────────────────────────────────────────────────────
 function render() {
+  const sectionHeights = new Map(
+    ["structure-card", "feedback-card"]
+      .map(id => {
+        const element = document.getElementById(id);
+        return [id, element && !element.classList.contains("hidden")
+          ? element.getBoundingClientRect().height
+          : null];
+      })
+  );
+
+  ["structure-card", "feedback-card"].forEach(id => {
+    const element = document.getElementById(id);
+    element?.getAnimations().forEach(animation => animation.cancel());
+  });
+
   renderList();
   renderFeedback();
+
+  animateSectionHeightChanges(sectionHeights);
+}
+
+function animateSectionHeightChanges(previousHeights) {
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  requestAnimationFrame(() => {
+    ["structure-card", "feedback-card"].forEach(id => {
+      const element = document.getElementById(id);
+      const previousHeight = previousHeights.get(id);
+
+      if (!element || element.classList.contains("hidden") || previousHeight === null) return;
+
+      const nextHeight = element.getBoundingClientRect().height;
+      if (Math.abs(previousHeight - nextHeight) < 1) return;
+
+      element.getAnimations().forEach(animation => animation.cancel());
+      element.animate(
+        [
+          { height: `${previousHeight}px` },
+          { height: `${nextHeight}px` },
+        ],
+        {
+          duration: 220,
+          easing: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+        }
+      );
+    });
+  });
 }
 
 function renderExposureHelpContent() {
@@ -555,9 +633,14 @@ function renderExposureHelpContent() {
 function renderList() {
   const listEl = document.getElementById("assessment-list");
   const tx = TX[lang];
+  const previousHeights = new Map(
+    [...listEl.querySelectorAll(".assessment-item[data-assessment-id]")]
+      .map(item => [item.dataset.assessmentId, item.getBoundingClientRect().height])
+  );
 
   if (!assessments.length) {
     listEl.innerHTML = `<div class="empty-state">${tx.emptyList}</div>`;
+    renderedAssessmentIds = new Set();
     return;
   }
 
@@ -576,6 +659,7 @@ function renderList() {
 
   listEl.innerHTML = assessments.map((a, i) => {
     const name = tx.labels[a.id] || a.id;
+    const enteringClass = renderedAssessmentIds.has(a.id) ? "" : " is-entering";
     let togglesHtml = "";
 
     if (a.pct === 0) {
@@ -609,7 +693,7 @@ function renderList() {
     const riskLabelKey = "risk" + risk.charAt(0).toUpperCase() + risk.slice(1);
 
     return `
-      <div class="assessment-item ${risk}">
+      <div class="assessment-item ${risk}${enteringClass}" data-assessment-id="${a.id}">
         <div class="item-main-row">
           <div class="item-labels">
             <span class="item-name">${name}</span>
@@ -638,6 +722,9 @@ function renderList() {
         ${togglesHtml ? `<div class="item-toggles">${togglesHtml}</div>` : ""}
       </div>`;
   }).join("");
+
+  renderedAssessmentIds = new Set(assessments.map(a => a.id));
+
 }
 
 function renderFeedback() {
@@ -818,6 +905,12 @@ function renderFeedback() {
     messages.push({ type: "danger", icon: "🚨", text: tx.msgTakeHomeMC });
   }
 
+  const existingGauge = feedbackEl.querySelector(".gauge-wrap");
+  const existingProgress = existingGauge?.querySelector(".gauge-progress");
+  const previousGaugeValue = existingProgress
+    ? parseFloat(existingProgress.dataset.value || "0")
+    : null;
+
   feedbackEl.innerHTML = `
     <div class="total-row">
       <span class="total-label">${tx.totalWeight}</span>
@@ -828,11 +921,13 @@ function renderFeedback() {
         <svg viewBox="0 0 88 88">
           <circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="#E6E5E3" stroke-width="9"></circle>
           <circle
+            class="gauge-progress"
             cx="${cx}" cy="${cy}" r="${radius}"
             fill="none"
             stroke="${gaugeColor}"
             stroke-width="9"
             stroke-dasharray="${filled} ${circumference}"
+            data-value="${vulnerability}"
             stroke-linecap="round"
             transform="rotate(-90 ${cx} ${cy})"
           ></circle>
@@ -860,6 +955,34 @@ function renderFeedback() {
           <span>${m.text}</span>
         </div>`).join("")}
     </div>`;
+
+  feedbackEl.classList.remove("feedback-content-update");
+  void feedbackEl.offsetWidth;
+  feedbackEl.classList.add("feedback-content-update");
+
+  const progress = feedbackEl.querySelector(".gauge-progress");
+  if (progress && previousGaugeValue !== null) {
+    const previousFilled = (previousGaugeValue / 100) * circumference;
+    const fromDasharray = `${previousFilled} ${circumference}`;
+    const toDasharray = `${filled} ${circumference}`;
+    progress.style.strokeDasharray = fromDasharray;
+
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      progress.animate(
+        [
+          { strokeDasharray: fromDasharray },
+          { strokeDasharray: toDasharray },
+        ],
+        {
+          duration: 550,
+          easing: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+          fill: "forwards",
+        }
+      );
+    } else {
+      progress.style.strokeDasharray = toDasharray;
+    }
+  }
 }
 
 // ─── Save as image ────────────────────────────────────────────────────────────
@@ -1026,6 +1149,9 @@ function applyTheme(theme) {
   const body = document.body;
   const btn  = document.getElementById("theme-toggle");
 
+  clearTimeout(themeTransitionTimer);
+  body.classList.add("theme-transition");
+
   if (theme === "dark") {
   body.classList.add("dark-theme");
   if (btn) btn.classList.add("is-dark");
@@ -1037,6 +1163,10 @@ function applyTheme(theme) {
   try {
     localStorage.setItem(THEME_KEY, theme);
   } catch (e) {}
+
+  themeTransitionTimer = setTimeout(() => {
+    body.classList.remove("theme-transition");
+  }, 280);
 }
 
 function loadTheme() {

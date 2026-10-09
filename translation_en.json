@@ -76,9 +76,9 @@
   "legendHigh": "High exposure",
   "legendMedium": "Medium exposure",
   "legendLow": "Low/no exposure",
-  "verdictLow": "🟢 Low AI Exposure",
-  "verdictMed": "🟡 Moderate AI Exposure",
-  "verdictHigh": "🔴 High AI Exposure",
+  "verdictLow": "Low AI Exposure",
+  "verdictMed": "Moderate AI Exposure",
+  "verdictHigh": "High AI Exposure",
   "labels": {
     "take-home-writing": "Take-home assignment",
     "take-home-exam": "Take-home exam",

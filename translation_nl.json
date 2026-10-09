@@ -78,9 +78,9 @@
   "legendHigh": "Hoge gevoeligheid",
   "legendMedium": "Medium gevoeligheid",
   "legendLow": "Lage / geen gevoeligheid",
-  "verdictLow": "🟢 Lage AI-gevoeligheid",
-  "verdictMed": "🟡 Medium AI-gevoeligheid",
-  "verdictHigh": "🔴 Hoge AI-gevoeligheid",
+  "verdictLow": "Lage AI-gevoeligheid",
+  "verdictMed": "Medium AI-gevoeligheid",
+  "verdictHigh": "Hoge AI-gevoeligheid",
   "labels": {
     "take-home-writing": "Thuisopdracht",
     "take-home-exam": "Tentamen (thuis)",
